@@ -78,7 +78,6 @@ public class abm_zona extends javax.swing.JFrame {
         jRadioButtonActivo = new javax.swing.JRadioButton();
         jRadioButtonInactivo = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        id_zona = new javax.swing.JLabel();
         jb_salir = new javax.swing.JButton();
         jb_atras = new javax.swing.JButton();
 
@@ -158,8 +157,6 @@ public class abm_zona extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Ingrese la zona a Buscar:");
 
-        id_zona.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jb_salir.setBackground(new java.awt.Color(255, 0, 0));
         jb_salir.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
         jb_salir.setText("SALIR");
@@ -220,10 +217,7 @@ public class abm_zona extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(id_zona, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRadioButtonActivo)
                                 .addGap(18, 18, 18)
@@ -231,7 +225,7 @@ public class abm_zona extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jb_atras)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,9 +264,7 @@ public class abm_zona extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(32, 32, 32)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(id_zona, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(55, 55, 55)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jRadioButtonActivo)
@@ -320,7 +312,6 @@ public class abm_zona extends javax.swing.JFrame {
         }
     }
     private void jTableZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableZonaMouseClicked
-        // TODO add your handling code here:
         int filaSeleccionada = jTableZona.getSelectedRow();
         if (filaSeleccionada >= 0){
             id_zona.setText(jTableZona.getValueAt(filaSeleccionada, 0).toString());
@@ -436,7 +427,6 @@ public class abm_zona extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelar;
     private javax.swing.JButton guardar;
-    private javax.swing.JLabel id_zona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
