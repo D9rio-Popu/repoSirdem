@@ -30,8 +30,8 @@ public class abm_cliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         componentdesactivado();
-        buttonGroup1.add(jRadioButton1);
-        buttonGroup1.add(jRadioButton2);
+        buttonGroup1.add(jRadioButtonActivo);
+        buttonGroup1.add(jRadioButtonInactivo);
         carga();
     }
 
@@ -46,8 +46,9 @@ public class abm_cliente extends javax.swing.JFrame {
         apellido.setEnabled(false);
         telefono.setEnabled(false);
         direccion.setEnabled(false);
-        jRadioButton1.setEnabled(false);
-        jRadioButton2.setEnabled(false);
+        jRadioButtonActivo.setEnabled(false);
+        jRadioButtonInactivo.setEnabled(false);
+        agregar.setEnabled(false);
         modificar.setEnabled(false);
         guardar.setEnabled(false);
         cancelar.setEnabled(false);
@@ -58,8 +59,8 @@ public class abm_cliente extends javax.swing.JFrame {
         apellido.setEnabled(true);
         telefono.setEnabled(true);
         direccion.setEnabled(true);
-        jRadioButton1.setEnabled(true);
-        jRadioButton2.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+        jRadioButtonInactivo.setEnabled(true);
     }
     
     void carga(){
@@ -105,11 +106,12 @@ public class abm_cliente extends javax.swing.JFrame {
         nom_buscar = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonActivo = new javax.swing.JRadioButton();
+        jRadioButtonInactivo = new javax.swing.JRadioButton();
         id_cliente = new javax.swing.JLabel();
         jb_salir = new javax.swing.JButton();
         jb_atras = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente");
@@ -195,11 +197,11 @@ public class abm_cliente extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jLabel6.setText("Estado:");
 
-        jRadioButton1.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
-        jRadioButton1.setText("Activo");
+        jRadioButtonActivo.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
+        jRadioButtonActivo.setText("Activo");
 
-        jRadioButton2.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
-        jRadioButton2.setText("Inactivo");
+        jRadioButtonInactivo.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
+        jRadioButtonInactivo.setText("Inactivo");
 
         id_cliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -238,6 +240,14 @@ public class abm_cliente extends javax.swing.JFrame {
             }
         });
 
+        agregar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        agregar.setText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,12 +283,12 @@ public class abm_cliente extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton1))
+                                .addComponent(jRadioButtonActivo))
                             .addComponent(modificar))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
+                                .addComponent(jRadioButtonInactivo))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
                                 .addComponent(guardar)
@@ -294,8 +304,10 @@ public class abm_cliente extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(agregar)
+                                        .addComponent(jLabel1)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(apellido)
@@ -318,13 +330,14 @@ public class abm_cliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jb_salir)
                             .addComponent(jb_atras))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)))
+                            .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agregar))
+                        .addGap(10, 10, 10)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -346,15 +359,15 @@ public class abm_cliente extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(jRadioButtonActivo)
+                            .addComponent(jRadioButtonInactivo))
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(modificar)
                             .addComponent(guardar)
                             .addComponent(cancelar)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -382,10 +395,8 @@ public class abm_cliente extends javax.swing.JFrame {
             }
             if(!encontrado){
                 //JOptionPane.showMessageDialog(null, "No se encontro el cliente puede cargarlo");
-                componentactivo();
-                guardar.setEnabled(true);
-                cancelar.setEnabled(true);
-                jRadioButton1.setSelected(true);
+                componentdesactivado();
+                agregar.setEnabled(true);
                 modific = false;
             }
             rs.close();
@@ -413,8 +424,8 @@ public class abm_cliente extends javax.swing.JFrame {
             telefono.setText(jTable1.getValueAt(filaSeleccionada, 3).toString());
             direccion.setText(jTable1.getValueAt(filaSeleccionada, 4).toString());
             buttonGroup1.setSelected(
-                "Activo".equals(jTable1.getValueAt(filaSeleccionada, 5).toString()) ? jRadioButton1.getModel() : 
-                "Inactivo".equals(jTable1.getValueAt(filaSeleccionada, 5).toString()) ? jRadioButton2.getModel() : null,
+                "Activo".equals(jTable1.getValueAt(filaSeleccionada, 5).toString()) ? jRadioButtonActivo.getModel() : 
+                "Inactivo".equals(jTable1.getValueAt(filaSeleccionada, 5).toString()) ? jRadioButtonInactivo.getModel() : null,
                 true
             );
             modificar.setEnabled(true);
@@ -431,7 +442,7 @@ public class abm_cliente extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-            int estado = jRadioButton1.isSelected() ? 1 : 0;
+            int estado = jRadioButtonActivo.isSelected() ? 1 : 0;
             if (modific){
                 int idd = Integer.parseInt(id_cliente.getText());
                 try{
@@ -447,6 +458,7 @@ public class abm_cliente extends javax.swing.JFrame {
                 }
             }
                 componentdesactivado();
+                buscar();
                 modific = false;
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -478,7 +490,21 @@ public class abm_cliente extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+        buscar();
     }//GEN-LAST:event_formWindowOpened
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        // TODO add your handling code here:
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
+        apellido.setEnabled(true);
+        telefono.setEnabled(true);
+        direccion.setEnabled(true);
+        jRadioButtonActivo.setSelected(true);
+        jRadioButtonInactivo.setEnabled(false);
+        nombre.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+    }//GEN-LAST:event_agregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -516,6 +542,7 @@ public class abm_cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregar;
     private javax.swing.JTextField apellido;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelar;
@@ -529,8 +556,8 @@ public class abm_cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButtonActivo;
+    private javax.swing.JRadioButton jRadioButtonInactivo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jb_atras;
