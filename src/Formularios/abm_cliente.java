@@ -21,11 +21,11 @@ public class abm_cliente extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
         carga();
-        nom_buscar.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        telefono.setDocument(new Clases.Validaciones.LimiteNumeros(10));
-        direccion.setDocument(new Clases.Validaciones.LimiteSoloLetras(20));
+        //nom_buscar.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        //nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        //apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        //telefono.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        //direccion.setDocument(new Clases.Validaciones.LimiteSoloLetras(20));
     }
 
     void componentdesactivado(){

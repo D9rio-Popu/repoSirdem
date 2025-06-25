@@ -22,10 +22,10 @@ public class abm_producto extends javax.swing.JFrame {
         carga();
         cargarMarca();
         componentdesactivado();
-        buttonGroup1.add(jRadioButtonActivo);
-        buttonGroup1.add(jRadioButtonInactivo);
-        codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
-        descripcion.setDocument(new Clases.Validaciones.LimiteSoloLetras(15));
+        //buttonGroup1.add(jRadioButtonActivo);
+        //buttonGroup1.add(jRadioButtonInactivo);
+        //codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
+        //descripcion.setDocument(new Clases.Validaciones.LimiteSoloLetras(15));
     }
     
     void componentactivo(){
