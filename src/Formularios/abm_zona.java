@@ -1,6 +1,7 @@
 
 package Formularios;
 
+import Clases.ImagenUtil;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -85,6 +86,11 @@ public class abm_zona extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zona");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         nom_buscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         nom_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -393,6 +399,10 @@ public class abm_zona extends javax.swing.JFrame {
     private void nom_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_buscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nom_buscarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+    }//GEN-LAST:event_formWindowOpened
 
     
     public static void main(String args[]) {

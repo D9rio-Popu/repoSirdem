@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Clases.ImagenUtil;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -113,6 +114,11 @@ public class abm_cliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nombre");
@@ -459,6 +465,10 @@ public class abm_cliente extends javax.swing.JFrame {
         vp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jb_atrasActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

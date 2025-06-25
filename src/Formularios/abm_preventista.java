@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Clases.ImagenUtil;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -112,6 +113,11 @@ public class abm_preventista extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Preventista");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("ABM Preventista");
@@ -445,6 +451,10 @@ public class abm_preventista extends javax.swing.JFrame {
     private void jb_salirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_salirMouseExited
         jb_salir.setBackground(new Color(204, 0, 0));
     }//GEN-LAST:event_jb_salirMouseExited
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
