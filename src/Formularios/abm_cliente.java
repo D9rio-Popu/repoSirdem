@@ -20,12 +20,12 @@ public class abm_cliente extends javax.swing.JFrame {
         componentdesactivado();
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
+        nom_buscar.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        telefono.setDocument(new Clases.Validaciones.LimiteNumeros(10));
+        direccion.setDocument(new Clases.Validaciones.LimiteSoloLetras(20));
         carga();
-        //nom_buscar.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //telefono.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //direccion.setDocument(new Clases.Validaciones.LimiteSoloLetras(20));
     }
 
     void componentdesactivado(){

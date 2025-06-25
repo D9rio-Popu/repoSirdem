@@ -21,9 +21,9 @@ public class abm_zona extends javax.swing.JFrame {
         componentdesactivado();
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
+        nom_buscar.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
+        nombre.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
         carga();
-        //nom_buscar.setDocument(new Clases.Validaciones.LimiteCaracteres(50));
-        //nombre.setDocument(new Clases.Validaciones.LimiteCaracteres(50));
     }
 
     void componentdesactivado(){

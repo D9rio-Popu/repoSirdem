@@ -17,15 +17,15 @@ public class abm_preventista extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-        carga();
-        componentdesactivado();
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
-        //dni_buscar.setDocument(new Clases.Validaciones.LimiteNumeros(8));
-        //nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
-        //dni.setDocument(new Clases.Validaciones.LimiteNumeros(8));
-        //telefono.setDocument(new Clases.Validaciones.LimiteNumeros(10));
+        dni_buscar.setDocument(new Clases.Validaciones.LimiteNumeros(8));
+        nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
+        dni.setDocument(new Clases.Validaciones.LimiteNumeros(8));
+        telefono.setDocument(new Clases.Validaciones.LimiteNumeros(10));
+        carga();
+        componentdesactivado();
     }
 
     void componentdesactivado(){

@@ -19,13 +19,13 @@ public class abm_producto extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        buttonGroup1.add(jRadioButtonActivo);
+        buttonGroup1.add(jRadioButtonInactivo);
+        codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
+        descripcion.setDocument(new Clases.Validaciones.LimiteSoloLetras(15));
         carga();
         cargarMarca();
         componentdesactivado();
-        //buttonGroup1.add(jRadioButtonActivo);
-        //buttonGroup1.add(jRadioButtonInactivo);
-        //codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
-        //descripcion.setDocument(new Clases.Validaciones.LimiteSoloLetras(15));
     }
     
     void componentactivo(){
