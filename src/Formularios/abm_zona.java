@@ -2,13 +2,11 @@
 package Formularios;
 
 import Clases.ImagenUtil;
-import java.awt.Color;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.table.*;
 
 
 public class abm_zona extends javax.swing.JFrame {
@@ -25,6 +23,8 @@ public class abm_zona extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
         carga();
+        nom_buscar.setDocument(new Clases.Validaciones.LimiteCaracteres(20));
+        nombre.setDocument(new Clases.Validaciones.LimiteCaracteres(20));
     }
 
     void componentdesactivado(){
@@ -34,7 +34,7 @@ public class abm_zona extends javax.swing.JFrame {
         nombre.setEnabled(false);
         jRadioButtonActivo.setEnabled(false);
         jRadioButtonInactivo.setEnabled(false);
-        agregar.setEnabled(false);
+        //agregar.setEnabled(false);
         modificar.setEnabled(false);
         guardar.setEnabled(false);
         cancelar.setEnabled(false);
