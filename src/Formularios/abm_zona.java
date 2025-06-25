@@ -100,7 +100,7 @@ public class abm_zona extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Modern No. 20", 0, 36)); // NOI18N
         jLabel1.setText("Gestión Zonas");
 
         jTableZona.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -124,7 +124,7 @@ public class abm_zona extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableZona);
 
-        modificar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        modificar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +132,7 @@ public class abm_zona extends javax.swing.JFrame {
             }
         });
 
-        cancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cancelar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +142,7 @@ public class abm_zona extends javax.swing.JFrame {
 
         nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        guardar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        guardar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,13 +150,13 @@ public class abm_zona extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jLabel2.setText("Nombre:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jLabel3.setText("Estado:");
 
-        jRadioButtonActivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRadioButtonActivo.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jRadioButtonActivo.setText("Activo");
         jRadioButtonActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,14 +164,14 @@ public class abm_zona extends javax.swing.JFrame {
             }
         });
 
-        jRadioButtonInactivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRadioButtonInactivo.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jRadioButtonInactivo.setText("Inactivo");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
         jLabel4.setText("Ingrese la zona a Buscar:");
 
         jb_salir.setBackground(new java.awt.Color(255, 0, 0));
-        jb_salir.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jb_salir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jb_salir.setText("SALIR");
         jb_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -188,7 +188,7 @@ public class abm_zona extends javax.swing.JFrame {
         });
 
         jb_atras.setBackground(new java.awt.Color(0, 0, 204));
-        jb_atras.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jb_atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jb_atras.setForeground(new java.awt.Color(255, 255, 255));
         jb_atras.setText("VOLVER");
         jb_atras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -223,41 +223,47 @@ public class abm_zona extends javax.swing.JFrame {
                         .addComponent(id_zona)
                         .addGap(34, 34, 34))))
             .addGroup(layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jb_atras)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(modificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(guardar)
-                        .addGap(44, 44, 44)
-                        .addComponent(cancelar)
-                        .addGap(84, 84, 84))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(217, 217, 217)
-                                .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(167, 167, 167)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonActivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonInactivo)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(167, 167, 167)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(modificar)
+                                        .addGap(27, 27, 27)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(guardar)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(cancelar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonActivo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonInactivo)))
+                                .addGap(20, 20, 20)))
+                        .addGap(0, 59, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jb_atras)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -267,9 +273,9 @@ public class abm_zona extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jb_atras)
                     .addComponent(jb_salir))
-                .addGap(10, 10, 10)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,19 +289,19 @@ public class abm_zona extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(107, 107, 107)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(guardar)
-                            .addComponent(modificar)
-                            .addComponent(cancelar))
-                        .addContainerGap(26, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jRadioButtonActivo)
                             .addComponent(jRadioButtonInactivo))
-                        .addGap(103, 103, 103))))
+                        .addGap(46, 46, 46)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardar)
+                    .addComponent(modificar)
+                    .addComponent(cancelar))
+                .addGap(24, 24, 24))
         );
 
         pack();
