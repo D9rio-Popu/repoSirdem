@@ -73,7 +73,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jb_salir.setBackground(new java.awt.Color(255, 0, 0));
         jb_salir.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
-        jb_salir.setText("Salida");
+        jb_salir.setText("Salir");
         jb_salir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jb_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
