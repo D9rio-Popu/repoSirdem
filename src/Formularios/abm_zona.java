@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-
 public class abm_zona extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
