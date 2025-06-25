@@ -40,7 +40,7 @@ public class abm_preventista extends javax.swing.JFrame {
         telefono.setEnabled(false);
         jRadioButtonActivo.setEnabled(false);
         jRadioButtonInactivo.setEnabled(false);
-        //agregar.setEnabled(false);
+        agregar.setEnabled(false);
         modificar.setEnabled(false);
         guardar.setEnabled(false);
         cancelar.setEnabled(false);

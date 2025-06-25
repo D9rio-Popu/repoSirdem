@@ -41,7 +41,7 @@ public class abm_cliente extends javax.swing.JFrame {
         direccion.setEnabled(false);
         jRadioButtonActivo.setEnabled(false);
         jRadioButtonInactivo.setEnabled(false);
-        //agregar.setEnabled(false);
+        agregar.setEnabled(false);
         modificar.setEnabled(false);
         guardar.setEnabled(false);
         cancelar.setEnabled(false);
@@ -390,9 +390,9 @@ public class abm_cliente extends javax.swing.JFrame {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
         componentdesactivado();
-        guardar.setEnabled(false);
+        /*guardar.setEnabled(false);
         modificar.setEnabled(false);
-        cancelar.setEnabled(false);
+        cancelar.setEnabled(false);*/
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

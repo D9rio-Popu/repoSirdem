@@ -34,7 +34,7 @@ public class abm_zona extends javax.swing.JFrame {
         nombre.setEnabled(false);
         jRadioButtonActivo.setEnabled(false);
         jRadioButtonInactivo.setEnabled(false);
-        //agregar.setEnabled(false);
+        agregar.setEnabled(false);
         modificar.setEnabled(false);
         guardar.setEnabled(false);
         cancelar.setEnabled(false);
@@ -390,9 +390,9 @@ public class abm_zona extends javax.swing.JFrame {
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         componentdesactivado();
-        guardar.setEnabled(false);
+        /*guardar.setEnabled(false);
         modificar.setEnabled(false);
-        cancelar.setEnabled(false);
+        cancelar.setEnabled(false);*/
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jb_salirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_salirMouseEntered
