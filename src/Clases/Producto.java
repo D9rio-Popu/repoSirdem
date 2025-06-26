@@ -5,10 +5,10 @@ import java.sql.*;
 import javax.swing.*;
 
 public class Producto {
-    public static ResultSet Buscar(Connection con, int codigo) throws Exception{
+    public static ResultSet Buscar(Connection con, String codigo) throws Exception{
         ResultSet rs = null;
-        PreparedStatement stm = con.prepareStatement("select id_producto, descripcion_producto, nombre_marca, case estado_producto when 1 then 'Activo' when 0 then 'Inactivo' end as estado from producto inner join marca on producto.id_marca = marca.id_marca where id_producto = ?");
-        stm.setInt(1, codigo);
+        PreparedStatement stm = con.prepareStatement("select id_producto, descripcion_producto, nombre_marca, case estado_producto when 1 then 'Activo' when 0 then 'Inactivo' end as estado from producto inner join marca on producto.id_marca = marca.id_marca where CONVERT(id_producto, CHAR) LIKE ?");
+        stm.setString(1,"%"+ codigo +"%");
         rs = stm.executeQuery();
         return rs;
     }

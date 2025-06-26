@@ -11,11 +11,13 @@ import javax.swing.event.*;
 public class abm_cliente extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
+    
     private boolean modific = false;
 
     public abm_cliente() {
         this.setUndecorated(true);
         initComponents();
+        id_cliente.setVisible(false);
         setLocationRelativeTo(null);
         componentdesactivado();
         buttonGroup1.add(jRadioButtonActivo);
@@ -29,7 +31,6 @@ public class abm_cliente extends javax.swing.JFrame {
     }
 
     void componentdesactivado(){
-        id_cliente.setText("");
         nombre.setText("");
         apellido.setText("");
         telefono.setText("");
@@ -52,8 +53,8 @@ public class abm_cliente extends javax.swing.JFrame {
         apellido.setEnabled(true);
         telefono.setEnabled(true);
         direccion.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
-        jRadioButtonInactivo.setEnabled(true);
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
     }
     
     void carga(){
@@ -337,11 +338,11 @@ public class abm_cliente extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jRadioButtonActivo)
-                                .addComponent(jRadioButtonInactivo)))
+                                .addComponent(jRadioButtonInactivo))
+                            .addComponent(jLabel6))
                         .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(modificar)
@@ -374,9 +375,7 @@ public class abm_cliente extends javax.swing.JFrame {
                 modelo.addRow(fila);
                 encontrado = true;
             }
-            if(!encontrado){
-                //JOptionPane.showMessageDialog(null, "No se encontro el cliente puede cargarlo");
-                componentdesactivado();
+            if(!encontrado && !nom_buscar.getText().isEmpty()){
                 agregar.setEnabled(true);
                 modific = false;
             }
@@ -390,9 +389,6 @@ public class abm_cliente extends javax.swing.JFrame {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
         componentdesactivado();
-        /*guardar.setEnabled(false);
-        modificar.setEnabled(false);
-        cancelar.setEnabled(false);*/
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -416,9 +412,10 @@ public class abm_cliente extends javax.swing.JFrame {
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         // TODO add your handling code here:
         componentactivo();
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+        jRadioButtonInactivo.setEnabled(true);
         modific = true;
+        modificar.setEnabled(false);
     }//GEN-LAST:event_modificarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
@@ -438,9 +435,9 @@ public class abm_cliente extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error no pudo cargar el cliente "+ex.getMessage());
                 }
             }
-                componentdesactivado();
-                buscar();
-                modific = false;
+            componentdesactivado();
+            buscar();
+            modific = false;
     }//GEN-LAST:event_guardarActionPerformed
 
     private void jb_salirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_salirMouseEntered
@@ -475,15 +472,11 @@ public class abm_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
-        apellido.setEnabled(true);
-        telefono.setEnabled(true);
-        direccion.setEnabled(true);
+        nom_buscar.setText("");
+        componentactivo();
+        jRadioButtonActivo.setEnabled(true);
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
-        nombre.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
     }//GEN-LAST:event_agregarActionPerformed
 
     /**

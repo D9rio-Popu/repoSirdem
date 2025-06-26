@@ -17,6 +17,7 @@ public class abm_preventista extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        jLdni.setVisible(false);
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
         dni_buscar.setDocument(new Clases.Validaciones.LimiteNumeros(8));
@@ -51,8 +52,8 @@ public class abm_preventista extends javax.swing.JFrame {
         apellido.setEnabled(true);
         dni.setEnabled(true);
         telefono.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
-        jRadioButtonInactivo.setEnabled(true);
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
     }
     
     void carga(){
@@ -62,9 +63,7 @@ public class abm_preventista extends javax.swing.JFrame {
             }
 
             public void removeUpdate(DocumentEvent e) {
-                //buscar();
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.setRowCount(0);
+                buscar();
                 componentdesactivado();
             }
 
@@ -106,6 +105,7 @@ public class abm_preventista extends javax.swing.JFrame {
         jb_atras = new javax.swing.JButton();
         jb_salir = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
+        jLdni = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Preventista");
@@ -261,43 +261,49 @@ public class abm_preventista extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(agregar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(modificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(guardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cancelar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(apellido))
-                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(jLabel2)
+                                        .addComponent(modificar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(guardar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cancelar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(apellido))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(20, 20, 20)
-                                                    .addComponent(jLabel8))
-                                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addComponent(jLabel5)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(8, 8, 8)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jRadioButtonActivo)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonInactivo)))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                            .addGap(20, 20, 20)
+                                                            .addComponent(jLabel8))
+                                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(1, 1, 1)
+                                                        .addComponent(jLabel5)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jRadioButtonActivo)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jRadioButtonInactivo)))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(276, 276, 276)
+                                .addComponent(jLdni, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -325,6 +331,8 @@ public class abm_preventista extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLdni, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -376,8 +384,7 @@ public class abm_preventista extends javax.swing.JFrame {
                 modelo.addRow(fila);
                 encontrado = true;
             }
-            if (!encontrado){
-                //JOptionPane.showMessageDialog(null, "No se encontro el preventista. Puede cargar sus datos");
+            if (!encontrado && !dni_buscar.getText().isEmpty()){
                 agregar.setEnabled(true);
                 modific = false;
             }
@@ -392,7 +399,7 @@ public class abm_preventista extends javax.swing.JFrame {
         int estado = jRadioButtonActivo.isSelected() ? 1 : 0;
         if (modific){
             try{
-                Clases.Preventista.Modificar(con, nombre.getText(), apellido.getText(), dni.getText(), telefono.getText(), estado, dni_buscar.getText());
+                Clases.Preventista.Modificar(con, nombre.getText(), apellido.getText(), dni.getText(), telefono.getText(), estado, jLdni.getText());
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(this, "Eror no se puede modificar "+ex.getMessage());
             }
@@ -404,15 +411,17 @@ public class abm_preventista extends javax.swing.JFrame {
             }
         }
         componentdesactivado();
+        buscar();
         modific = false;
     }//GEN-LAST:event_guardarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         // TODO add your handling code here:
         componentactivo();
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+        jRadioButtonInactivo.setEnabled(true);
         modific = true;
+        modificar.setEnabled(false);
     }//GEN-LAST:event_modificarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -427,6 +436,7 @@ public class abm_preventista extends javax.swing.JFrame {
             nombre.setText(jTable1.getValueAt(filaSeleccionada, 0).toString());
             apellido.setText(jTable1.getValueAt(filaSeleccionada, 1).toString());
             dni.setText(jTable1.getValueAt(filaSeleccionada, 2).toString());
+            jLdni.setText(jTable1.getValueAt(filaSeleccionada, 2).toString());
             telefono.setText(jTable1.getValueAt(filaSeleccionada, 3).toString());
             buttonGroup1.setSelected(
                 "Activo".equals(jTable1.getValueAt(filaSeleccionada, 5).toString()) ? jRadioButtonActivo.getModel() : 
@@ -465,20 +475,16 @@ public class abm_preventista extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+        buscar();
     }//GEN-LAST:event_formWindowOpened
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         // TODO add your handling code here:
-        dni_buscar.setText("");
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        //dni_buscar.setText("");
+        componentactivo();
+        jRadioButtonActivo.setEnabled(true);
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
-        nombre.setEnabled(true);
-        apellido.setEnabled(true);
-        dni.setEnabled(true);
-        telefono.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
     }//GEN-LAST:event_agregarActionPerformed
 
     /**
@@ -531,6 +537,7 @@ public class abm_preventista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLdni;
     private javax.swing.JRadioButton jRadioButtonActivo;
     private javax.swing.JRadioButton jRadioButtonInactivo;
     private javax.swing.JScrollPane jScrollPane1;

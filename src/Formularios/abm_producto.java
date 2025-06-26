@@ -12,6 +12,7 @@ import javax.swing.table.*;
 public class abm_producto extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
+    
     private Map<String, Integer> marcamap = new HashMap<>();
     private boolean modific = false;
 
@@ -19,10 +20,11 @@ public class abm_producto extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        jLcodigo.setVisible(false);
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
         codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
-        descripcion.setDocument(new Clases.Validaciones.LimiteSoloLetras(15));
+        descripcion.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
         carga();
         cargarMarca();
         componentdesactivado();
@@ -31,8 +33,8 @@ public class abm_producto extends javax.swing.JFrame {
     void componentactivo(){
         descripcion.setEnabled(true);
         jComboBox2.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
-        jRadioButtonInactivo.setEnabled(true);
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
     }
     
     void componentdesactivado(){
@@ -77,10 +79,8 @@ public class abm_producto extends javax.swing.JFrame {
             }
 
             public void removeUpdate(DocumentEvent e) {
-                //buscar();
+                buscar();
                 componentdesactivado();
-                DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-                modelo.setRowCount(0);
             }
 
             public void changedUpdate(DocumentEvent e) {
@@ -118,6 +118,7 @@ public class abm_producto extends javax.swing.JFrame {
         jb_salir = new javax.swing.JButton();
         jb_atras = new javax.swing.JButton();
         agregar = new javax.swing.JButton();
+        jLcodigo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Producto");
@@ -264,16 +265,16 @@ public class abm_producto extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(descripcion)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jb_atras)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jRadioButtonActivo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonInactivo)
-                                .addGap(58, 58, 58))))
+                                .addGap(58, 58, 58))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jb_atras)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -293,9 +294,14 @@ public class abm_producto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                                 .addComponent(modificar)
                                 .addGap(40, 40, 40)))
-                        .addComponent(guardar)
-                        .addGap(41, 41, 41)
-                        .addComponent(cancelar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(guardar)
+                                .addGap(41, 41, 41)
+                                .addComponent(cancelar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(92, 92, 92)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -311,7 +317,8 @@ public class abm_producto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(agregar))
+                    .addComponent(agregar)
+                    .addComponent(jLcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,7 +348,7 @@ public class abm_producto extends javax.swing.JFrame {
 
     private void buscar(){
         Connection con = Conexion.Conexion.conexion();
-        int cod = Integer.parseInt(codigo.getText());
+        String cod = codigo.getText();
         try{
             ResultSet rs = Clases.Producto.Buscar(con, cod);
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -357,9 +364,7 @@ public class abm_producto extends javax.swing.JFrame {
                 modelo.addRow(fila);
                 encontrado = true;
             }
-            if (!encontrado){
-                //JOptionPane.showMessageDialog(null, "No se encontro el producto puede cargarlo...");
-                //componentactivo();
+            if (!encontrado && !codigo.getText().isEmpty()){
                 agregar.setEnabled(true);
                 modific = false;
             }
@@ -375,7 +380,7 @@ public class abm_producto extends javax.swing.JFrame {
         int marc = marcamap.get(jComboBox2.getSelectedItem().toString());
         int estado = jRadioButtonActivo.isSelected() ? 1 : 0;
         if (modific){
-            int codig = Integer.parseInt(codigo.getText());
+            int codig = Integer.parseInt(jLcodigo.getText());
             try{
                 Clases.Producto.Modificar(con, descripcion.getText(), marc, estado, codig);
             }catch(Exception ex){
@@ -389,6 +394,7 @@ public class abm_producto extends javax.swing.JFrame {
             }
         }
         componentdesactivado();
+        buscar();
         modific = false;
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -396,6 +402,7 @@ public class abm_producto extends javax.swing.JFrame {
         // TODO add your handling code here:
         int filaSeleccionada = jTable1.getSelectedRow();
         if (filaSeleccionada >= 0){
+            jLcodigo.setText(jTable1.getValueAt(filaSeleccionada, 0).toString());
             descripcion.setText(jTable1.getValueAt(filaSeleccionada, 1).toString());
             jComboBox2.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 2).toString());
             buttonGroup1.setSelected(
@@ -415,9 +422,10 @@ public class abm_producto extends javax.swing.JFrame {
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         // TODO add your handling code here:
         componentactivo();
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+        jRadioButtonInactivo.setEnabled(true);
         modific = true;
+        modificar.setEnabled(false);
     }//GEN-LAST:event_modificarActionPerformed
 
     private void jb_salirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_salirMouseEntered
@@ -448,18 +456,16 @@ public class abm_producto extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
+        buscar();
     }//GEN-LAST:event_formWindowOpened
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         // TODO add your handling code here:
         codigo.setText("");
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        componentactivo();
+        jRadioButtonActivo.setEnabled(true);
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
-        descripcion.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
-        jComboBox2.setEnabled(true);
     }//GEN-LAST:event_agregarActionPerformed
 
     /**
@@ -510,6 +516,7 @@ public class abm_producto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLcodigo;
     private javax.swing.JRadioButton jRadioButtonActivo;
     private javax.swing.JRadioButton jRadioButtonInactivo;
     private javax.swing.JScrollPane jScrollPane1;

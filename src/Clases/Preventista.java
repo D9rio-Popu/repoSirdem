@@ -7,8 +7,8 @@ import javax.swing.*;
 public class Preventista {
     public static ResultSet Buscar(Connection con, String dni)throws Exception{
         ResultSet rs = null;
-        PreparedStatement stm = con.prepareStatement("select nombre_preventista, apellido_preventista, dni_preventista, telefono_preventista, ingreso_preventista, case estado_preventista when 1 then 'Activo' when 0 then 'Inactivo' end as estado from preventista where dni_preventista = ?");
-        stm.setString(1, dni);
+        PreparedStatement stm = con.prepareStatement("select nombre_preventista, apellido_preventista, dni_preventista, telefono_preventista, ingreso_preventista, case estado_preventista when 1 then 'Activo' when 0 then 'Inactivo' end as estado from preventista where dni_preventista like ?");
+        stm.setString(1,"%"+ dni +"%");
         rs = stm.executeQuery();
         return rs;
     }

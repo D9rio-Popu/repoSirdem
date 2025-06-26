@@ -27,7 +27,6 @@ public class abm_zona extends javax.swing.JFrame {
     }
 
     void componentdesactivado(){
-        id_zona.setText("");
         nombre.setText("");
         buttonGroup1.clearSelection();
         nombre.setEnabled(false);
@@ -41,8 +40,8 @@ public class abm_zona extends javax.swing.JFrame {
     
     void componentactivo(){
         nombre.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
-        jRadioButtonInactivo.setEnabled(true);
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
     }
     
     void carga(){
@@ -333,8 +332,7 @@ public class abm_zona extends javax.swing.JFrame {
                 modelo.addRow(fila);
                 encontrado = true;
             }
-            if(!encontrado){
-                //JOptionPane.showMessageDialog(null,"No se encontro la zona puede cargarla.." );
+            if(!encontrado && !nom_buscar.getText().isEmpty()){
                 agregar.setEnabled(true);
                 modific = false;
             }
@@ -382,16 +380,14 @@ public class abm_zona extends javax.swing.JFrame {
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         componentactivo();
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        jRadioButtonActivo.setEnabled(true);
+        jRadioButtonInactivo.setEnabled(true);
         modific = true;
+        modificar.setEnabled(false);
     }//GEN-LAST:event_modificarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         componentdesactivado();
-        /*guardar.setEnabled(false);
-        modificar.setEnabled(false);
-        cancelar.setEnabled(false);*/
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jb_salirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_salirMouseEntered
@@ -436,12 +432,10 @@ public class abm_zona extends javax.swing.JFrame {
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         // TODO add your handling code here:
         nom_buscar.setText("");
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
+        componentactivo();
+        jRadioButtonActivo.setEnabled(true);
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
-        nombre.setEnabled(true);
-        jRadioButtonActivo.setEnabled(true);
     }//GEN-LAST:event_agregarActionPerformed
 
     
