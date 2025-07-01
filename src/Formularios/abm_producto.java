@@ -2,9 +2,12 @@
 package Formularios;
 
 import Clases.ImagenUtil;
+import Clases.Marca;
 import java.awt.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -65,6 +68,7 @@ public class abm_producto extends javax.swing.JFrame {
                 jComboBox2.addItem(nombre);
                 marcamap.put(nombre, id);
             }
+            jComboBox2.addItem("Agregar marca");
             rs.close();
             con.close();
         }catch(SQLException e){
@@ -162,6 +166,11 @@ public class abm_producto extends javax.swing.JFrame {
 
         jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         guardar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         guardar.setText("Guardar");
@@ -467,6 +476,19 @@ public class abm_producto extends javax.swing.JFrame {
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
     }//GEN-LAST:event_agregarActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        if ("Agregar marca".equals(jComboBox2.getSelectedItem())) {
+            String nuevaMarca = JOptionPane.showInputDialog(null, "Ingrese una nueva marca:", "Agregar marca", JOptionPane.PLAIN_MESSAGE); 
+            if (nuevaMarca != null && !nuevaMarca.trim().isEmpty()) {
+               Marca.agregarNuevaMarca(con, nuevaMarca);
+               jComboBox2.insertItemAt(nuevaMarca, jComboBox2.getItemCount() - 1);
+               jComboBox2.setSelectedItem(nuevaMarca);
+            } else {
+               jComboBox2.setSelectedIndex(0); 
+            }
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
