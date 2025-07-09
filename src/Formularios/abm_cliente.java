@@ -529,10 +529,6 @@ public class abm_cliente extends javax.swing.JFrame {
         jRadioButtonInactivo.setEnabled(false);
     }//GEN-LAST:event_agregarActionPerformed
 
-    private void modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modificar1ActionPerformed
-
     private void jb_activoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_activoActionPerformed
         try{
             ResultSet rs = Clases.Cliente.mostrarEstado(con, 1);
@@ -576,7 +572,7 @@ public class abm_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_inactivoActionPerformed
 
     private void jb_todosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_todosActionPerformed
-         try{
+        try{
             ResultSet rs = Clases.Cliente.mostrarClientes(con);
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);

@@ -18,9 +18,9 @@ public class Marca {
     public static void agregarNuevaMarca(Connection con, String marca) {
         PreparedStatement stm = null;
         try {
-            stm = con.prepareStatement("INSERT INTO marca (nombre_marca) VALUES (?)");
+            stm = con.prepareStatement("insert into marca (nombre_marca) VALUES (?)");
             stm.setString(1, marca);
-            stm.executeUpdate(); // Usar executeUpdate() para INSERT
+            stm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Marca agregada correctamente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al agregar marca: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
