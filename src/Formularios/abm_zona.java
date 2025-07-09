@@ -68,8 +68,6 @@ public class abm_zona extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         nom_buscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableZona = new javax.swing.JTable();
         modificar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
@@ -83,6 +81,8 @@ public class abm_zona extends javax.swing.JFrame {
         jb_atras = new javax.swing.JButton();
         id_zona = new javax.swing.JLabel();
         agregar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableZona = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zona");
@@ -94,35 +94,9 @@ public class abm_zona extends javax.swing.JFrame {
         });
 
         nom_buscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        nom_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nom_buscarActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Modern No. 20", 0, 36)); // NOI18N
         jLabel1.setText("Gestión Zonas");
-
-        jTableZona.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTableZona.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "N°", "Nombre", "Estado"
-            }
-        ));
-        jTableZona.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableZonaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableZona);
 
         modificar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         modificar.setText("Modificar");
@@ -215,6 +189,24 @@ public class abm_zona extends javax.swing.JFrame {
             }
         });
 
+        jTableZona.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "N°", "Nombre", "Estado"
+            }
+        ));
+        jTableZona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableZonaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableZona);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,8 +247,7 @@ public class abm_zona extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jb_atras)
                                     .addGroup(layout.createSequentialGroup()
@@ -270,7 +261,11 @@ public class abm_zona extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(agregar)
-                                    .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -287,17 +282,17 @@ public class abm_zona extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(agregar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(56, 56, 56)
                         .addComponent(id_zona)
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -342,20 +337,6 @@ public class abm_zona extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Error al buscar la zona " +ex.getMessage());
         }
     }
-    private void jTableZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableZonaMouseClicked
-        int filaSeleccionada = jTableZona.getSelectedRow();
-        if (filaSeleccionada >= 0){
-            id_zona.setText(jTableZona.getValueAt(filaSeleccionada, 0).toString());
-            nombre.setText(jTableZona.getValueAt(filaSeleccionada, 1).toString());
-            buttonGroup1.setSelected(
-                "Activo".equals(jTableZona.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButtonActivo.getModel() : 
-                "Inactivo".equals(jTableZona.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButtonInactivo.getModel() : null,
-                true
-            );
-            modificar.setEnabled(true);
-        }
-    }//GEN-LAST:event_jTableZonaMouseClicked
-
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
         int estado = jRadioButtonActivo.isSelected() ? 1 : 0;
@@ -416,10 +397,6 @@ public class abm_zona extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jb_atrasActionPerformed
 
-    private void nom_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nom_buscarActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
         buscar();
@@ -437,6 +414,21 @@ public class abm_zona extends javax.swing.JFrame {
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
     }//GEN-LAST:event_agregarActionPerformed
+
+    private void jTableZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableZonaMouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = jTableZona.getSelectedRow();
+        if (filaSeleccionada >= 0){
+            id_zona.setText(jTableZona.getValueAt(filaSeleccionada, 0).toString());
+            nombre.setText(jTableZona.getValueAt(filaSeleccionada, 1).toString());
+            buttonGroup1.setSelected(
+                "Activo".equals(jTableZona.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButtonActivo.getModel() :
+                "Inactivo".equals(jTableZona.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButtonInactivo.getModel() : null,
+                true
+            );
+            modificar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableZonaMouseClicked
 
     
     public static void main(String args[]) {
@@ -483,8 +475,8 @@ public class abm_zona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JRadioButton jRadioButtonActivo;
     private javax.swing.JRadioButton jRadioButtonInactivo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableZona;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.jdesktop.swingx.JXTable jTableZona;
     private javax.swing.JButton jb_atras;
     private javax.swing.JButton jb_salir;
     private javax.swing.JButton modificar;

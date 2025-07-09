@@ -479,11 +479,12 @@ public class abm_producto extends javax.swing.JFrame {
         if ("Agregar marca".equals(jComboBox2.getSelectedItem())) {
             String nuevaMarca = JOptionPane.showInputDialog(null, "Ingrese una nueva marca:", "Agregar marca", JOptionPane.PLAIN_MESSAGE); 
             if (nuevaMarca != null && !nuevaMarca.trim().isEmpty()) {
-               Marca.agregarNuevaMarca(con, nuevaMarca);
-               jComboBox2.insertItemAt(nuevaMarca, jComboBox2.getItemCount() - 1);
-               jComboBox2.setSelectedItem(nuevaMarca);
-            } else {
-               jComboBox2.setSelectedIndex(0); 
+               try{
+                    Clases.Marca.agregarNuevaMarca(con, nuevaMarca);
+                    cargarMarca();
+               }catch(Exception ex){
+                    JOptionPane.showMessageDialog(this, "Error no se puede modificar "+ex.getMessage());
+               }
             }
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed

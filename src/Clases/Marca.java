@@ -15,24 +15,14 @@ import javax.swing.JOptionPane;
  * @author alumno
  */
 public class Marca {   
-    public static void agregarNuevaMarca(Connection con, String marca) {
-        PreparedStatement stm = null;
+    public static void agregarNuevaMarca(Connection con, String marca)throws Exception {
+        PreparedStatement stm = con.prepareStatement("insert into marca (nombre_marca) VALUES (?)");
+        stm.setString(1, marca);
         try {
-            stm = con.prepareStatement("insert into marca (nombre_marca) VALUES (?)");
-            stm.setString(1, marca);
             stm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Marca agregada correctamente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al agregar marca: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            // Cerrar el PreparedStatement
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException ex) {
-                    System.err.println("Error al cerrar PreparedStatement: " + ex.getMessage());
-                }
-            }
         }
     }   
 }
