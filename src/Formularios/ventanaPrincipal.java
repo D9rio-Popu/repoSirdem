@@ -4,6 +4,7 @@ package Formularios;
 import java.awt.*;
 import javax.swing.*;
 import Clases.ImagenUtil;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class ventanaPrincipal extends javax.swing.JFrame {
 
@@ -190,6 +191,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            FlatLightLaf.setup(); // Asegura que FlatLaf esté configurado
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al configurar FlatLaf: " + e.getMessage());
+            return; // Salir si FlatLaf no se inicializa
+        }
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
