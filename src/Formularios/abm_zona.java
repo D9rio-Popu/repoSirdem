@@ -79,9 +79,9 @@ public class abm_zona extends javax.swing.JFrame {
     void colorjTable(){
         //ENCABEZADO DEL TABLE
         //jTableZona.getTableHeader().setBackground(Color.decode("#4682B4"));
-        jTableZona.getTableHeader().setForeground(Color.BLACK);
-        jTableZona.setShowGrid(true);
-        jTableZona.setGridColor(Color.black);
+        //jTableZona.getTableHeader().setForeground(Color.BLACK);
+        //jTableZona.setShowGrid(true);
+        //jTableZona.setGridColor(Color.black);
     }
     void carga(){
         nom_buscar.getDocument().addDocumentListener(new DocumentListener() {
@@ -153,7 +153,9 @@ public class abm_zona extends javax.swing.JFrame {
 
         id_zona.setText("id_zona");
 
-        jTableZona.setBorder(new javax.swing.border.MatteBorder(null));
+        jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 2, 1, new java.awt.Color(0, 0, 0)));
+
         jTableZona.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTableZona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

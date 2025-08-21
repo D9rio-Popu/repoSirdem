@@ -7,8 +7,13 @@ package Formularios;
 
 import Clases.ImagenUtil;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -18,14 +23,18 @@ import javax.swing.table.TableRowSorter;
  */
 public class abm_gasto extends javax.swing.JFrame {
 
+    Connection con = Conexion.Conexion.conexion();
+    private boolean modific = false;
     /**
      * Creates new form abm_gasto
      */
     public abm_gasto() {
         this.setUndecorated(true);
         initComponents();
+        id_gasto.setVisible(false);
         setLocationRelativeTo(null);
         componentdesactivado();
+        carga();
         botonGroup();
         // Cambiar bordes en foco
         Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
@@ -73,6 +82,22 @@ public class abm_gasto extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
     }
+    void carga(){
+        nom_buscar.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                buscar();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                buscar();
+                componentdesactivado();
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                buscar();
+            }
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,6 +133,7 @@ public class abm_gasto extends javax.swing.JFrame {
         modificar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        id_gasto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -191,11 +217,21 @@ public class abm_gasto extends javax.swing.JFrame {
             }
         ));
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         agregar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         agregar.setText("Agregar");
         agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -263,14 +299,31 @@ public class abm_gasto extends javax.swing.JFrame {
         modificar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         modificar.setText("Modificar");
         modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
 
         guardar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         guardar.setText("Guardar");
         guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
 
         cancelar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+
+        id_gasto.setText("id_gasto");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -295,48 +348,39 @@ public class abm_gasto extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(modificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(guardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelar)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(modificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(guardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancelar)))
+                        .addContainerGap(23, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(id_gasto)
+                        .addGap(58, 58, 58))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(agregar))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -345,10 +389,11 @@ public class abm_gasto extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(27, 27, 27)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jRadioButton1)
+                                        .addComponent(jRadioButton2)))
                                 .addGap(65, 65, 65)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -357,7 +402,27 @@ public class abm_gasto extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(id_gasto)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(agregar))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(nom_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100))))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -388,9 +453,37 @@ public class abm_gasto extends javax.swing.JFrame {
         }
     }
     
+    private void buscar(){
+        Connection con = Conexion.Conexion.conexion();
+        String nom = nom_buscar.getText();
+        try{
+            ResultSet rs = Clases.Gasto.Buscar(con, nom);
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            boolean encontrado = false;
+            while(rs.next()){
+                Object[] fila = {
+                  rs.getInt("id_gasto"),
+                  rs.getString("nombre_gasto"),
+                  rs.getString("estado")
+                };
+                modelo.addRow(fila);
+                encontrado = true;
+            }
+            if(!encontrado && !nom_buscar.getText().isEmpty()){
+                agregar.setEnabled(true);
+                modific = false;
+            }
+            rs.close();
+            con.close();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,"Error al buscar el gasto " +ex.getMessage());
+        }
+    }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel4);
         ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel2);
+        buscar();
     }//GEN-LAST:event_formWindowOpened
 
     private void minimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizarActionPerformed
@@ -409,6 +502,66 @@ public class abm_gasto extends javax.swing.JFrame {
         vp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jb_atrasActionPerformed
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        // TODO add your handling code here:
+        nom_buscar.setText("");
+        componentactivo();
+        jRadioButton1.setEnabled(true);
+        jRadioButton1.setSelected(true);
+        jRadioButton2.setEnabled(false);
+    }//GEN-LAST:event_agregarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada >= 0){
+            id_gasto.setText(jTable1.getValueAt(filaSeleccionada, 0).toString());
+            nombre.setText(jTable1.getValueAt(filaSeleccionada, 1).toString());
+            buttonGroup1.setSelected(
+                "Activo".equals(jTable1.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButton1.getModel() :
+                "Inactivo".equals(jTable1.getValueAt(filaSeleccionada, 2).toString()) ? jRadioButton2.getModel() : null,
+                true
+            );
+            modificar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        // TODO add your handling code here:
+        componentdesactivado();
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // TODO add your handling code here:
+        componentactivo();
+        jRadioButton1.setEnabled(true);
+        jRadioButton2.setEnabled(true);
+        modific = true;
+        modificar.setEnabled(false);
+    }//GEN-LAST:event_modificarActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        // TODO add your handling code here:
+        int estado = jRadioButton1.isSelected() ? 1 : 0;
+        if(modific){
+            int idd = Integer.parseInt(id_gasto.getText());
+            try{
+                Clases.Gasto.Modificar(con, nombre.getText(), estado, idd);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this,"Error no se puede modificar" +ex.getMessage());
+            }
+        }else{
+            try{
+                Clases.Gasto.Insertar(con, nombre.getText(), estado);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this,"Error no se pudo cargar el libro" +ex.getMessage());
+            }
+        }
+        componentdesactivado();
+        buscar();
+        modific = false;
+    }//GEN-LAST:event_guardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,6 +607,7 @@ public class abm_gasto extends javax.swing.JFrame {
     private javax.swing.JRadioButton filtroInactivo;
     private javax.swing.JRadioButton filtroTodo;
     private javax.swing.JButton guardar;
+    private javax.swing.JLabel id_gasto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
