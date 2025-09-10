@@ -11,10 +11,10 @@ import javax.swing.event.*;
 public class abm_cliente extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
-    
+    JFrame ventanaAnterior;
     private boolean modific = false;
 
-    public abm_cliente() {
+    public abm_cliente(JFrame called) {
         this.setUndecorated(true);
         initComponents();
         id_cliente.setVisible(false);
@@ -28,6 +28,11 @@ public class abm_cliente extends javax.swing.JFrame {
         direccion.setDocument(new Clases.Validaciones.LimiteSoloLetras(20));
         carga();
         botonGroup();
+        this.ventanaAnterior = called;
+        jb_atras.addActionListener(e -> {
+        ventanaAnterior = called;
+        ventanaAnterior.setVisible(true);
+        dispose();});
         // Cambiar bordes en foco
         Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
         Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
@@ -45,6 +50,7 @@ public class abm_cliente extends javax.swing.JFrame {
         new Clases.TextPrompt("Apellido del Cliente (*)", apellido);
         new Clases.TextPrompt("Direccion (*)", direccion);
         new Clases.TextPrompt("Telefono (*)", telefono);
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
     }
 
     void componentdesactivado(){
@@ -91,9 +97,10 @@ public class abm_cliente extends javax.swing.JFrame {
         buttonGroup2.add(filtroInactivo);
         buttonGroup2.add(filtroTodo);
         filtroTodo.setSelected(true);
-        filtroActivo.addActionListener(e -> aplicarFiltro());
-        filtroInactivo.addActionListener(e -> aplicarFiltro());
-        filtroTodo.addActionListener(e -> aplicarFiltro());
+        
+        filtroActivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 5, "Activo");});
+        filtroInactivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 5, "Inactivo");});
+        filtroTodo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 5, "Todo");});
         
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
@@ -136,7 +143,6 @@ public class abm_cliente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         nombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         apellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         telefono = new javax.swing.JTextField();
@@ -200,11 +206,6 @@ public class abm_cliente extends javax.swing.JFrame {
         jb_atras.setForeground(new java.awt.Color(255, 255, 255));
         jb_atras.setToolTipText("Atras");
         jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_atras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_atrasActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -251,7 +252,9 @@ public class abm_cliente extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 153, 153)));
+
+        jTable1.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -275,10 +278,6 @@ public class abm_cliente extends javax.swing.JFrame {
         nombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
-        jLabel1.setText("Nombre:");
-
-        jLabel2.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
-        jLabel2.setText("Apellido:");
 
         apellido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         apellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -332,7 +331,7 @@ public class abm_cliente extends javax.swing.JFrame {
         });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro por Estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
 
         filtroActivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         filtroActivo.setText("Activo");
@@ -396,42 +395,34 @@ public class abm_cliente extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(modificar)
-                            .addGap(18, 18, 18)
-                            .addComponent(guardar)
-                            .addGap(18, 18, 18)
-                            .addComponent(cancelar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jRadioButtonActivo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jRadioButtonInactivo))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(141, 141, 141))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(apellido))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(69, 69, 69)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(modificar)
                         .addGap(18, 18, 18)
-                        .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(guardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButtonActivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonInactivo))
+                            .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
@@ -453,15 +444,16 @@ public class abm_cliente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGap(91, 91, 91)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(telefono, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -510,20 +502,6 @@ public class abm_cliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aplicarFiltro() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        jTable1.setRowSorter(sorter);
-
-        if (filtroActivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Activo", 5)); // columna 2 = Estado
-        } else if (filtroInactivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Inactivo", 5));
-        } else {
-            sorter.setRowFilter(null); // muestra todo
-        }
-    }
-    
     private void buscar(){
         Connection con = Conexion.Conexion.conexion();
         String nom = nom_buscar.getText();
@@ -613,18 +591,13 @@ public class abm_cliente extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jb_salirActionPerformed
 
-    private void jb_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_atrasActionPerformed
-        ventanaPrincipal vp = new ventanaPrincipal();
-        vp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jb_atrasActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
         ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel6);
         ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel5);
         ImagenUtil.cargarEnLabel("src/imagenes/telefono.png", jLabel3);
         ImagenUtil.cargarEnLabel("src/imagenes/direccion.png", jLabel4);
+        ImagenUtil.cargarEnLabel("src/imagenes/cliente.png", jLabel1);
         buscar();
     }//GEN-LAST:event_formWindowOpened
 
@@ -671,7 +644,7 @@ public class abm_cliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new abm_cliente().setVisible(true);
+                //new abm_cliente().setVisible(true);
             }
         });
     }
@@ -689,7 +662,6 @@ public class abm_cliente extends javax.swing.JFrame {
     private javax.swing.JButton guardar;
     private javax.swing.JLabel id_cliente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

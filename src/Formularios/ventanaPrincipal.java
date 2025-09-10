@@ -106,7 +106,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jButton2.setText("Rendiciones");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -130,7 +131,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(jb_gestprod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jb_gestcli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -140,48 +141,47 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jl_nomemp, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                     .addComponent(jl_logemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jb_gestprev, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jb_gestprev, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jb_gestcli, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jb_gestcli, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jb_gestprod, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jb_gestzon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_gestcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_gestcliActionPerformed
-        abm_cliente abm_cli = new abm_cliente();
+        abm_cliente abm_cli = new abm_cliente(this);
         abm_cli.setVisible(true);
         dispose();
     }//GEN-LAST:event_jb_gestcliActionPerformed
 
     private void jb_gestprevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_gestprevActionPerformed
 
-        abm_preventista abm_prev = new abm_preventista();
+        abm_preventista abm_prev = new abm_preventista(this);
         abm_prev.setVisible(true);
         dispose();
         
     }//GEN-LAST:event_jb_gestprevActionPerformed
 
     private void jb_gestzonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_gestzonActionPerformed
-        abm_zona abm_z = new abm_zona();
+        abm_zona abm_z = new abm_zona(this);
         abm_z.setVisible(true);
         dispose();
     }//GEN-LAST:event_jb_gestzonActionPerformed
 
     private void jb_gestprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_gestprodActionPerformed
-        abm_producto abm_prod = new abm_producto();
+        abm_producto abm_prod = new abm_producto(this);
         abm_prod.setVisible(true);
         dispose();
     }//GEN-LAST:event_jb_gestprodActionPerformed
@@ -207,7 +207,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        abm_gasto abm_g = new abm_gasto();
+        abm_gasto abm_g = new abm_gasto(this);
         abm_g.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

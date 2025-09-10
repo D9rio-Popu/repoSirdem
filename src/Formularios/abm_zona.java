@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.*;
+import javafx.scene.control.ScrollBar;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -14,9 +15,10 @@ import javax.swing.table.*;
 public class abm_zona extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
+    JFrame ventanaAnterior;
     private boolean modific = false;
     
-    public abm_zona() {
+    public abm_zona(JFrame called) {
         this.setUndecorated(true);
         initComponents();
         id_zona.setVisible(false);
@@ -26,7 +28,11 @@ public class abm_zona extends javax.swing.JFrame {
         nombre.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
         carga();
         botonGroup();
-        colorjTable();
+        this.ventanaAnterior = called;
+        jb_atras.addActionListener(e -> {
+        ventanaAnterior.setVisible(true);
+        dispose();
+        });
         // Cambiar bordes en foco
         Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
         Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
@@ -38,7 +44,7 @@ public class abm_zona extends javax.swing.JFrame {
         new Clases.TextPrompt("Buscar...", nom_buscar);
         // Placeholder para campo nombre
         new Clases.TextPrompt("Nombre de la Zona (*)", nombre);
-
+        Clases.tablaStyle.personalizarJTable(jTableZona, jScrollPane1);
     }
 
     void componentdesactivado(){
@@ -68,21 +74,15 @@ public class abm_zona extends javax.swing.JFrame {
         buttonGroup2.add(filtroInactivo);
         buttonGroup2.add(filtroTodo);
         filtroTodo.setSelected(true);
-        filtroActivo.addActionListener(e -> aplicarFiltro());
-        filtroInactivo.addActionListener(e -> aplicarFiltro());
-        filtroTodo.addActionListener(e -> aplicarFiltro());
+        
+        filtroActivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTableZona, 2, "Activo");});
+        filtroInactivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTableZona, 2, "Inactivo");});
+        filtroTodo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTableZona, 2, "Todo");});
         
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
     }
     
-    void colorjTable(){
-        //ENCABEZADO DEL TABLE
-        //jTableZona.getTableHeader().setBackground(Color.decode("#4682B4"));
-        //jTableZona.getTableHeader().setForeground(Color.BLACK);
-        //jTableZona.setShowGrid(true);
-        //jTableZona.setGridColor(Color.black);
-    }
     void carga(){
         nom_buscar.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
@@ -154,7 +154,7 @@ public class abm_zona extends javax.swing.JFrame {
         id_zona.setText("id_zona");
 
         jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 2, 1, new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 153, 153)));
 
         jTableZona.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTableZona.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,7 +188,7 @@ public class abm_zona extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro por Estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
 
         filtroActivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         filtroActivo.setText("Activo");
@@ -281,11 +281,6 @@ public class abm_zona extends javax.swing.JFrame {
         jb_atras.setToolTipText("Atras");
         jb_atras.setBorder(null);
         jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_atras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_atrasActionPerformed(evt);
-            }
-        });
 
         minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setFont(new java.awt.Font("Arial Unicode MS", 1, 12)); // NOI18N
@@ -456,21 +451,6 @@ public class abm_zona extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void aplicarFiltro() {
-        DefaultTableModel modelo = (DefaultTableModel) jTableZona.getModel();
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        jTableZona.setRowSorter(sorter);
-
-        if (filtroActivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Activo", 2)); // columna 2 = Estado
-        } else if (filtroInactivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Inactivo", 2));
-        } else {
-            sorter.setRowFilter(null); // muestra todo
-        }
-    }
-    
     private void buscar(){
         Connection con = Conexion.Conexion.conexion();
         String nom = nom_buscar.getText();
@@ -498,6 +478,7 @@ public class abm_zona extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Error al buscar la zona " +ex.getMessage());
         }
     }
+    
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
         int estado = jRadioButtonActivo.isSelected() ? 1 : 0;
@@ -535,12 +516,6 @@ public class abm_zona extends javax.swing.JFrame {
     private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jb_salirActionPerformed
-
-    private void jb_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_atrasActionPerformed
-        ventanaPrincipal vp = new ventanaPrincipal();
-        vp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jb_atrasActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
@@ -605,7 +580,7 @@ public class abm_zona extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new abm_zona().setVisible(true);
+                //new abm_zona().setVisible(true);
             }
         });
     }

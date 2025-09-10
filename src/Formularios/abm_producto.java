@@ -13,20 +13,24 @@ import javax.swing.table.*;
 public class abm_producto extends javax.swing.JFrame {
 
     Connection con = Conexion.Conexion.conexion();
-    
+    JFrame ventanaAnterior;
     private Map<String, Integer> marcamap = new HashMap<>();
     private boolean modific = false;
+    
 
-    public abm_producto() {
+    public abm_producto(JFrame called) {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
         jLcodigo.setVisible(false);
         codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
         descripcion.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
+        this.ventanaAnterior = called;
+        jb_atras.addActionListener(e -> {ventanaAnterior.setVisible(true);
+        dispose();
+        });
         carga();
         botonGroup();
-        cargarMarca();
         componentdesactivado();
         // Cambiar bordes en foco
         Clases.FocusBorderChanger.aplicar(codigo, new Color(0, 153, 255), Color.GRAY); // celeste
@@ -39,6 +43,8 @@ public class abm_producto extends javax.swing.JFrame {
         new Clases.TextPrompt("Buscar...", codigo);
         // Placeholder para campo nombre
         new Clases.TextPrompt("Descripcion del Producto (*)", descripcion);
+        Clases.CargarCombox.cargar(jComboBox2, marcamap, "marca", "id_marca", "nombre_marca", "Seleccionar la Marca", "Agregar marca");
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
     }
     
     void componentactivo(){
@@ -70,33 +76,13 @@ public class abm_producto extends javax.swing.JFrame {
         buttonGroup2.add(filtroInactivo);
         buttonGroup2.add(filtroTodo);
         filtroTodo.setSelected(true);
-        filtroActivo.addActionListener(e -> aplicarFiltro());
-        filtroInactivo.addActionListener(e -> aplicarFiltro());
-        filtroTodo.addActionListener(e -> aplicarFiltro());
+        
+        filtroActivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 3, "Activo");});
+        filtroInactivo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 3, "Inactivo");});
+        filtroTodo.addActionListener(e -> { Clases.Filtro.aplicarFiltro(jTable1, 3, "Todo");});
         
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
-    }
-    void cargarMarca(){
-        try{
-            Connection con = Conexion.Conexion.conexion();
-            ResultSet rs = null;
-            PreparedStatement ps = con.prepareStatement("select id_marca, nombre_marca from marca");
-            rs = ps.executeQuery();
-            jComboBox2.removeAllItems();
-            jComboBox2.addItem("Seleccionar la Marca");
-            while(rs.next()){
-                String nombre = rs.getString("nombre_marca");
-                int id = rs.getInt("id_marca");
-                jComboBox2.addItem(nombre);
-                marcamap.put(nombre, id);
-            }
-            jComboBox2.addItem("Agregar marca");
-            rs.close();
-            con.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
     }
     
     void carga(){
@@ -237,7 +223,9 @@ public class abm_producto extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Modern No. 20", 0, 24)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 153, 153)));
+
+        jTable1.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -258,7 +246,7 @@ public class abm_producto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 204)), "Filtro por Estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Yu Mincho Demibold", 3, 14))); // NOI18N
         jPanel3.setForeground(new java.awt.Color(0, 0, 204));
 
         filtroActivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -322,11 +310,6 @@ public class abm_producto extends javax.swing.JFrame {
         jb_atras.setForeground(new java.awt.Color(255, 255, 255));
         jb_atras.setToolTipText("Atras");
         jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_atras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_atrasActionPerformed(evt);
-            }
-        });
 
         minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setToolTipText("Minimizar");
@@ -480,19 +463,6 @@ public class abm_producto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void aplicarFiltro() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        jTable1.setRowSorter(sorter);
-        if (filtroActivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Activo", 3)); // columna 2 = Estado
-        } else if (filtroInactivo.isSelected()) {
-            sorter.setRowFilter(RowFilter.regexFilter("Inactivo", 3));
-        } else {
-            sorter.setRowFilter(null); // muestra todo
-        }
-    }
-    
     private void buscar(){
         Connection con = Conexion.Conexion.conexion();
         String cod = codigo.getText();
@@ -579,12 +549,6 @@ public class abm_producto extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jb_salirActionPerformed
 
-    private void jb_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_atrasActionPerformed
-        ventanaPrincipal vp = new ventanaPrincipal();
-        vp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jb_atrasActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
         ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
@@ -607,7 +571,7 @@ public class abm_producto extends javax.swing.JFrame {
             if (nuevaMarca != null && !nuevaMarca.trim().isEmpty()) {
                try{
                     Clases.Marca.agregarNuevaMarca(con, nuevaMarca);
-                    cargarMarca();
+                    Clases.CargarCombox.cargar(jComboBox2, marcamap, "marca", "id_marca", "nombre_marca", "Seleccionar la Marca", "Agregar marca");
                }catch(Exception ex){
                     JOptionPane.showMessageDialog(this, "Error no se puede modificar "+ex.getMessage());
                }
@@ -650,7 +614,7 @@ public class abm_producto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new abm_producto().setVisible(true);
+                //new abm_producto().setVisible(true);
             }
         });
     }
