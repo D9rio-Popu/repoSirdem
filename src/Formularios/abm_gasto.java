@@ -54,6 +54,8 @@ public class abm_gasto extends javax.swing.JFrame {
         // Placeholder para campo nombre
         new Clases.TextPrompt("Nombre del Gasto (*)", nombre);
         Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+        
+
     }
     
     void componentactivo(){
@@ -75,6 +77,7 @@ public class abm_gasto extends javax.swing.JFrame {
         nombre.setBackground(Color.WHITE);
         nombre.setDisabledTextColor(Color.BLACK); // texto negro estando desactivado
         nombre.setOpaque(true);
+        agregar.setEnabled(true);
     }
     
     void botonGroup(){
@@ -460,13 +463,13 @@ public class abm_gasto extends javax.swing.JFrame {
                 encontrado = true;
             }
             if(!encontrado && !nom_buscar.getText().isEmpty()){
-                agregar.setEnabled(true);
+                
                 modific = false;
             }
             rs.close();
             con.close();
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Error al buscar el gasto " +ex.getMessage());
+            //JOptionPane.showMessageDialog(this,"Error al buscar el gasto " +ex.getMessage());
         }
     }
     
@@ -493,6 +496,7 @@ public class abm_gasto extends javax.swing.JFrame {
         jRadioButton1.setEnabled(true);
         jRadioButton1.setSelected(true);
         jRadioButton2.setEnabled(false);
+        agregar.setEnabled(false);
     }//GEN-LAST:event_agregarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

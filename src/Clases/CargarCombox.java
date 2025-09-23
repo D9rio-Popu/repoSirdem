@@ -35,6 +35,7 @@ public class CargarCombox {
                 comboBox.addItem(nombre);
                 map.put(nombre, id);
             }
+            
             comboBox.addItem(extraOption);
             //if (extraOption != null && !extraOption.isEmpty()) {  
             //}

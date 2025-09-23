@@ -8,7 +8,7 @@ public class Conexion {
     public static Connection conexion(){
 
         Connection conexion = null;
-        String servidor = "jdbc:mysql://localhost/sirdem";
+        String servidor = "jdbc:mysql://localhost/taf";
         String usuario = "root";
         String pas = "";
         try {

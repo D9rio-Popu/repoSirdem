@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Cliente {
     public static ResultSet Buscar(Connection con, String nombre)throws Exception{
         ResultSet rs = null;
-        PreparedStatement stm = con.prepareStatement("select id_clientes, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case estado_cliente when 1 then 'Activo' when 0 then 'Inactivo' end as estado from cliente where nombre_cliente LIKE ?");
+        PreparedStatement stm = con.prepareStatement("select id_cliente, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case estado_cliente when 1 then 'Activo' when 0 then 'Inactivo' end as estado from cliente where nombre_cliente LIKE ?");
         stm.setString(1,"%" + nombre + "%");
         rs = stm.executeQuery();
         return rs;
@@ -15,7 +15,7 @@ public class Cliente {
     
     public static ResultSet mostrarEstado(Connection con, int estado)throws Exception{
         ResultSet rs = null;
-        PreparedStatement stm = con.prepareStatement("select id_clientes, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case when estado_cliente=1 then 'Activo' else 'Inactivo' end as estado_cliente from cliente where estado_cliente=?");
+        PreparedStatement stm = con.prepareStatement("select id_cliente, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case when estado_cliente=1 then 'Activo' else 'Inactivo' end as estado_cliente from cliente where estado_cliente=?");
         stm.setInt(1,estado);
         rs = stm.executeQuery();
         return rs;
@@ -23,7 +23,7 @@ public class Cliente {
     
     public static ResultSet mostrarClientes(Connection con)throws Exception{
         ResultSet rs = null;
-        PreparedStatement stm = con.prepareStatement("select id_clientes, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case when estado_cliente=1 then 'Activo' else 'Inactivo' end as estado_cliente from cliente");
+        PreparedStatement stm = con.prepareStatement("select id_cliente, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, case when estado_cliente=1 then 'Activo' else 'Inactivo' end as estado_cliente from cliente");
         //stm.setInt(1,estado);
         rs = stm.executeQuery();
         return rs;

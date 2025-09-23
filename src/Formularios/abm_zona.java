@@ -60,7 +60,7 @@ public class abm_zona extends javax.swing.JFrame {
         nombre.setBackground(Color.WHITE);
         nombre.setDisabledTextColor(Color.BLACK); // texto negro estando desactivado
         nombre.setOpaque(true);
-        
+        agregar.setEnabled(true);
     }
     
     void componentactivo(){
@@ -469,13 +469,13 @@ public class abm_zona extends javax.swing.JFrame {
                 encontrado = true;
             }
             if(!encontrado && !nom_buscar.getText().isEmpty()){
-                agregar.setEnabled(true);
+                //agregar.setEnabled(true);
                 modific = false;
             }
             rs.close();
             con.close();
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Error al buscar la zona " +ex.getMessage());
+            //JOptionPane.showMessageDialog(this,"Error al buscar la zona " +ex.getMessage());
         }
     }
     
@@ -528,6 +528,7 @@ public class abm_zona extends javax.swing.JFrame {
         // TODO add your handling code here:
         nom_buscar.setText("");
         componentactivo();
+        agregar.setEnabled(false);
         jRadioButtonActivo.setEnabled(true);
         jRadioButtonActivo.setSelected(true);
         jRadioButtonInactivo.setEnabled(false);
