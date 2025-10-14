@@ -195,14 +195,12 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jb_atras" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="329" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="277" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
                       <Component id="minimizar" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jb_salir" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="atras" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -214,8 +212,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabel1" min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jb_atras" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                              <Component id="jb_salir" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                              <Component id="atras" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
                               <Component id="minimizar" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -225,14 +222,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jb_atras">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Atras"/>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor de Mano"/>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="minimizar">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Minimizar"/>
@@ -244,16 +233,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="minimizarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jb_salir">
+            <Component class="javax.swing.JButton" name="atras">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Salir"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Cursor de Mano"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_salirActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>

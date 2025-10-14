@@ -44,7 +44,7 @@ public class Cliente {
         }
     }
     public static void Modificar(Connection con, String nombre, String apellido, String telefono, String direccion, int estado, int idd)throws Exception{
-        PreparedStatement stm = con.prepareStatement("update cliente set nombre_cliente = ?, apellido_cliente = ?, telefono_cliente = ?, direccion_cliente = ?, estado_cliente = ? where id_clientes = ?");
+        PreparedStatement stm = con.prepareStatement("update cliente set nombre_cliente = ?, apellido_cliente = ?, telefono_cliente = ?, direccion_cliente = ?, estado_cliente = ? where id_cliente = ?");
         stm.setString(1, nombre);
         stm.setString(2, apellido);
         stm.setString(3, telefono);

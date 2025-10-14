@@ -1,7 +1,6 @@
 
 package Formularios;
 
-import Clases.ImagenUtil;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -21,7 +20,6 @@ public class abm_zona extends javax.swing.JFrame {
     public abm_zona(JFrame called) {
         this.setUndecorated(true);
         initComponents();
-        id_zona.setVisible(false);
         setLocationRelativeTo(null);
         componentdesactivado();
         nom_buscar.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
@@ -29,25 +27,15 @@ public class abm_zona extends javax.swing.JFrame {
         carga();
         botonGroup();
         this.ventanaAnterior = called;
-        jb_atras.addActionListener(e -> {
+        atras.addActionListener(e -> {
         ventanaAnterior.setVisible(true);
         dispose();
         });
-        // Cambiar bordes en foco
-        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
-        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
-        // Aplica imagen al botón
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_salir, "/imagenes/salir.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_atras, "/imagenes/anterior.png");
-        // Placeholder para campo de búsqueda
-        new Clases.TextPrompt("Buscar...", nom_buscar);
-        // Placeholder para campo nombre
-        new Clases.TextPrompt("Nombre de la Zona (*)", nombre);
-        Clases.tablaStyle.personalizarJTable(jTableZona, jScrollPane1);
+        personalizacion();
     }
 
     void componentdesactivado(){
+        id_zona.setVisible(false);
         nombre.setText("");
         buttonGroup1.clearSelection();
         nombre.setEnabled(false);
@@ -81,6 +69,20 @@ public class abm_zona extends javax.swing.JFrame {
         
         buttonGroup1.add(jRadioButtonActivo);
         buttonGroup1.add(jRadioButtonInactivo);
+    }
+    
+    void personalizacion(){
+        // Cambiar bordes en foco
+        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
+        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
+        // Aplica imagen al botón
+        Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
+        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Placeholder para campo de búsqueda
+        new Clases.TextPrompt("Buscar...", nom_buscar);
+        new Clases.TextPrompt("Nombre de la Zona (*)", nombre);
+        //Estilo al jTable
+        Clases.tablaStyle.personalizarJTable(jTableZona, jScrollPane1);
     }
     
     void carga(){
@@ -121,9 +123,8 @@ public class abm_zona extends javax.swing.JFrame {
         guardar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jb_salir = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jb_atras = new javax.swing.JButton();
         minimizar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jRadioButtonActivo = new javax.swing.JRadioButton();
@@ -259,28 +260,16 @@ public class abm_zona extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 0, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
 
-        jb_salir.setBackground(new java.awt.Color(0, 0, 204));
-        jb_salir.setFont(new java.awt.Font("Arial Unicode MS", 1, 12)); // NOI18N
-        jb_salir.setForeground(new java.awt.Color(255, 255, 255));
-        jb_salir.setToolTipText("Salir");
-        jb_salir.setBorder(null);
-        jb_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_salirActionPerformed(evt);
-            }
-        });
+        atras.setBackground(new java.awt.Color(0, 0, 204));
+        atras.setFont(new java.awt.Font("Arial Unicode MS", 1, 12)); // NOI18N
+        atras.setForeground(new java.awt.Color(255, 255, 255));
+        atras.setToolTipText("Salir");
+        atras.setBorder(null);
+        atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestión de Zonas");
-
-        jb_atras.setBackground(new java.awt.Color(0, 0, 204));
-        jb_atras.setFont(new java.awt.Font("Arial Unicode MS", 1, 12)); // NOI18N
-        jb_atras.setForeground(new java.awt.Color(255, 255, 255));
-        jb_atras.setToolTipText("Atras");
-        jb_atras.setBorder(null);
-        jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setFont(new java.awt.Font("Arial Unicode MS", 1, 12)); // NOI18N
@@ -299,14 +288,12 @@ public class abm_zona extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(279, 279, 279)
+                .addGap(341, 341, 341)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -320,10 +307,7 @@ public class abm_zona extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(minimizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                            .addComponent(jb_salir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(atras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -469,7 +453,6 @@ public class abm_zona extends javax.swing.JFrame {
                 encontrado = true;
             }
             if(!encontrado && !nom_buscar.getText().isEmpty()){
-                //agregar.setEnabled(true);
                 modific = false;
             }
             rs.close();
@@ -513,14 +496,10 @@ public class abm_zona extends javax.swing.JFrame {
         componentdesactivado();
     }//GEN-LAST:event_cancelarActionPerformed
 
-    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jb_salirActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
-        ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel4);
-        ImagenUtil.cargarEnLabel("src/imagenes/ubicacion.jpg", jLabel2);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel4);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/ubicacion.jpg", jLabel2);
         buscar();
     }//GEN-LAST:event_formWindowOpened
 
@@ -588,6 +567,7 @@ public class abm_zona extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
+    private javax.swing.JButton atras;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelar;
@@ -608,8 +588,6 @@ public class abm_zona extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableZona;
-    private javax.swing.JButton jb_atras;
-    private javax.swing.JButton jb_salir;
     private javax.swing.JButton minimizar;
     private javax.swing.JButton modificar;
     private javax.swing.JTextField nom_buscar;

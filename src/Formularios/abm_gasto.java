@@ -5,7 +5,6 @@
  */
 package Formularios;
 
-import Clases.ImagenUtil;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,30 +31,16 @@ public class abm_gasto extends javax.swing.JFrame {
     public abm_gasto(JFrame called) {
         this.setUndecorated(true);
         initComponents();
-        id_gasto.setVisible(false);
         setLocationRelativeTo(null);
         componentdesactivado();
         carga();
         botonGroup();
         this.ventanaAnterior = called;
-        jb_atras.addActionListener(e -> {
+        atras.addActionListener(e -> {
         ventanaAnterior.setVisible(true);
         dispose();
         });
-        // Cambiar bordes en foco
-        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
-        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
-        // Aplica imagen al botón
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_salir, "/imagenes/salir.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_atras, "/imagenes/anterior.png");
-        // Placeholder para campo de búsqueda
-        new Clases.TextPrompt("Buscar...", nom_buscar);
-        // Placeholder para campo nombre
-        new Clases.TextPrompt("Nombre del Gasto (*)", nombre);
-        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
-        
-
+        personalizacion();
     }
     
     void componentactivo(){
@@ -65,6 +50,7 @@ public class abm_gasto extends javax.swing.JFrame {
     }
     
     void componentdesactivado(){
+        id_gasto.setVisible(false);
         nombre.setText("");
         buttonGroup1.clearSelection();
         nombre.setEnabled(false);
@@ -93,17 +79,30 @@ public class abm_gasto extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
     }
+    
+    void personalizacion(){
+        // Cambiar bordes en foco
+        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
+        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
+        // Aplica imagen al botón
+        Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
+        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Placeholder para campo de búsqueda
+        new Clases.TextPrompt("Buscar...", nom_buscar);
+        new Clases.TextPrompt("Nombre del Gasto (*)", nombre);
+        //Estilo al jtable
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+    }
+    
     void carga(){
         nom_buscar.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 buscar();
             }
-
             public void removeUpdate(DocumentEvent e) {
                 buscar();
                 componentdesactivado();
             }
-
             public void changedUpdate(DocumentEvent e) {
                 buscar();
             }
@@ -122,9 +121,8 @@ public class abm_gasto extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jb_atras = new javax.swing.JButton();
         minimizar = new javax.swing.JButton();
-        jb_salir = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -158,9 +156,6 @@ public class abm_gasto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
-        jb_atras.setToolTipText("Atras");
-        jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         minimizar.setToolTipText("Minimizar");
         minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,13 +164,8 @@ public class abm_gasto extends javax.swing.JFrame {
             }
         });
 
-        jb_salir.setToolTipText("Salir");
-        jb_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_salirActionPerformed(evt);
-            }
-        });
+        atras.setToolTipText("Salir");
+        atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,14 +176,12 @@ public class abm_gasto extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(329, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(236, 236, 236)
                 .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,8 +191,7 @@ public class abm_gasto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jb_atras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jb_salir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(atras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(minimizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -474,8 +461,8 @@ public class abm_gasto extends javax.swing.JFrame {
     }
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel4);
-        ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel2);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel4);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel2);
         buscar();
     }//GEN-LAST:event_formWindowOpened
 
@@ -483,11 +470,6 @@ public class abm_gasto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_minimizarActionPerformed
-
-    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jb_salirActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         // TODO add your handling code here:
@@ -587,6 +569,7 @@ public class abm_gasto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
+    private javax.swing.JButton atras;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelar;
@@ -607,8 +590,6 @@ public class abm_gasto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jb_atras;
-    private javax.swing.JButton jb_salir;
     private javax.swing.JButton minimizar;
     private javax.swing.JButton modificar;
     private javax.swing.JTextField nom_buscar;

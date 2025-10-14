@@ -1,7 +1,6 @@
 
 package Formularios;
 
-import Clases.ImagenUtil;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
@@ -17,7 +16,6 @@ public class abm_cliente extends javax.swing.JFrame {
     public abm_cliente(JFrame called) {
         this.setUndecorated(true);
         initComponents();
-        id_cliente.setVisible(false);
         setLocationRelativeTo(null);
         componentdesactivado();
         nom_buscar.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
@@ -28,31 +26,15 @@ public class abm_cliente extends javax.swing.JFrame {
         carga();
         botonGroup();
         this.ventanaAnterior = called;
-        jb_atras.addActionListener(e -> {
+        atras.addActionListener(e -> {
         ventanaAnterior = called;
         ventanaAnterior.setVisible(true);
         dispose();});
-        // Cambiar bordes en foco
-        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
-        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(apellido, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(direccion, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(telefono, new Color(0, 153, 255), Color.GRAY);
-        // Aplica imagen al botón
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_salir, "/imagenes/salir.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_atras, "/imagenes/anterior.png");
-        // Placeholder para campo de búsqueda
-        new Clases.TextPrompt("Buscar...", nom_buscar);
-        // Placeholder para campo nombre
-        new Clases.TextPrompt("Nombre del Cliente (*)", nombre);
-        new Clases.TextPrompt("Apellido del Cliente (*)", apellido);
-        new Clases.TextPrompt("Direccion (*)", direccion);
-        new Clases.TextPrompt("Telefono (*)", telefono);
-        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+        personalizacion();
     }
 
     void componentdesactivado(){
+        id_cliente.setVisible(false);
         nombre.setText("");
         apellido.setText("");
         telefono.setText("");
@@ -106,17 +88,36 @@ public class abm_cliente extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonInactivo);
     }
     
+    void personalizacion(){
+        // Cambiar bordes en foco
+        Clases.FocusBorderChanger.aplicar(nom_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
+        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(apellido, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(direccion, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(telefono, new Color(0, 153, 255), Color.GRAY);
+        // Aplica imagen al botón
+        Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
+        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Placeholder para campo de búsqueda
+        new Clases.TextPrompt("Buscar...", nom_buscar);
+        // Placeholder para campo nombre
+        new Clases.TextPrompt("Nombre del Cliente (*)", nombre);
+        new Clases.TextPrompt("Apellido del Cliente (*)", apellido);
+        new Clases.TextPrompt("Direccion (*)", direccion);
+        new Clases.TextPrompt("Telefono (*)", telefono);
+        //Estilos al jtable
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+    }
+    
     void carga(){
         nom_buscar.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 buscar();
             }
-
             public void removeUpdate(DocumentEvent e) {
                 buscar();
                 componentdesactivado();
             }
-
             public void changedUpdate(DocumentEvent e) {
                 buscar();
             }
@@ -134,9 +135,8 @@ public class abm_cliente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         minimizar = new javax.swing.JButton();
-        jb_salir = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jb_atras = new javax.swing.JButton();
         nom_buscar = new javax.swing.JTextField();
         agregar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -186,15 +186,10 @@ public class abm_cliente extends javax.swing.JFrame {
             }
         });
 
-        jb_salir.setBackground(new java.awt.Color(0, 0, 204));
-        jb_salir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_salir.setToolTipText("Salir");
-        jb_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_salirActionPerformed(evt);
-            }
-        });
+        atras.setBackground(new java.awt.Color(0, 0, 204));
+        atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        atras.setToolTipText("Salir");
+        atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 204));
         jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
@@ -202,25 +197,17 @@ public class abm_cliente extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Gestión de Clientes");
 
-        jb_atras.setBackground(new java.awt.Color(0, 0, 204));
-        jb_atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_atras.setForeground(new java.awt.Color(255, 255, 255));
-        jb_atras.setToolTipText("Atras");
-        jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(394, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(291, 291, 291)
                 .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -233,9 +220,8 @@ public class abm_cliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         nom_buscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -509,7 +495,7 @@ public class abm_cliente extends javax.swing.JFrame {
             boolean encontrado = false;
             while (rs.next()){
                 Object[] fila = {
-                    rs.getInt("id_clientes"),
+                    rs.getInt("id_cliente"),
                     rs.getString("nombre_cliente"),
                     rs.getString("apellido_cliente"),
                     rs.getString("telefono_cliente"),
@@ -520,7 +506,6 @@ public class abm_cliente extends javax.swing.JFrame {
                 encontrado = true;
             }
             if(!encontrado && !nom_buscar.getText().isEmpty()){
-                
                 modific = false;
             }
             rs.close();
@@ -584,18 +569,14 @@ public class abm_cliente extends javax.swing.JFrame {
             modific = false;
     }//GEN-LAST:event_guardarActionPerformed
 
-    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jb_salirActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
-        ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel6);
-        ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel5);
-        ImagenUtil.cargarEnLabel("src/imagenes/telefono.png", jLabel3);
-        ImagenUtil.cargarEnLabel("src/imagenes/direccion.png", jLabel4);
-        ImagenUtil.cargarEnLabel("src/imagenes/cliente.png", jLabel1);
         buscar();
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel6);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel5);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/telefono.png", jLabel3);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/direccion.png", jLabel4);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/cliente.png", jLabel1);
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
@@ -650,6 +631,7 @@ public class abm_cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
     private javax.swing.JTextField apellido;
+    private javax.swing.JButton atras;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelar;
@@ -674,8 +656,6 @@ public class abm_cliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jb_atras;
-    private javax.swing.JButton jb_salir;
     private javax.swing.JButton minimizar;
     private javax.swing.JButton modificar;
     private javax.swing.JTextField nom_buscar;

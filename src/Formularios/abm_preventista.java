@@ -1,7 +1,6 @@
 
 package Formularios;
 
-import Clases.ImagenUtil;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
@@ -18,7 +17,6 @@ public class abm_preventista extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-        jLdni.setVisible(false);
         dni_buscar.setDocument(new Clases.Validaciones.LimiteNumeros(8));
         nombre.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
         apellido.setDocument(new Clases.Validaciones.LimiteSoloLetras(10));
@@ -28,32 +26,15 @@ public class abm_preventista extends javax.swing.JFrame {
         botonGroup();
         componentdesactivado();
         this.ventanaAnterior = called;
-        jb_atras.addActionListener(e -> {
+        atras.addActionListener(e -> {
         ventanaAnterior.setVisible(true);
         dispose();
         });
-        // Cambiar bordes en foco
-        Clases.FocusBorderChanger.aplicar(dni_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
-        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(apellido, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(dni, new Color(0, 153, 255), Color.GRAY);
-        Clases.FocusBorderChanger.aplicar(telefono, new Color(0, 153, 255), Color.GRAY);
-        // Aplica imagen al botón
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_salir, "/imagenes/salir.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_atras, "/imagenes/anterior.png");
-        // Placeholder para campo de búsqueda
-        new Clases.TextPrompt("Buscar...", dni_buscar);
-        // Placeholder para campo nombre
-        new Clases.TextPrompt("Nombre del Preventista (*)", nombre);
-        new Clases.TextPrompt("Apellido del Preventista (*)", apellido);
-        new Clases.TextPrompt("D.N.I. (*)", dni);
-        new Clases.TextPrompt("Telefono (*)", telefono);
-        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
-        jb_salir.setEnabled(false);
+        personalizacion();
     }
 
     void componentdesactivado(){
+        jLdni.setVisible(false);
         nombre.setText("");
         apellido.setText("");
         dni.setText("");
@@ -107,6 +88,26 @@ public class abm_preventista extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonInactivo);
     }
     
+    void personalizacion(){
+        // Cambiar bordes en foco
+        Clases.FocusBorderChanger.aplicar(dni_buscar, new Color(0, 153, 255), Color.GRAY); // celeste
+        Clases.FocusBorderChanger.aplicar(nombre, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(apellido, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(dni, new Color(0, 153, 255), Color.GRAY);
+        Clases.FocusBorderChanger.aplicar(telefono, new Color(0, 153, 255), Color.GRAY);
+        // Aplica imagen al botón
+        Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
+        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Placeholder para campo de búsqueda
+        new Clases.TextPrompt("Buscar...", dni_buscar);
+        new Clases.TextPrompt("Nombre del Preventista (*)", nombre);
+        new Clases.TextPrompt("Apellido del Preventista (*)", apellido);
+        new Clases.TextPrompt("D.N.I. (*)", dni);
+        new Clases.TextPrompt("Telefono (*)", telefono);
+        //Estilo al jTable
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+    }
+    
     void carga(){
         dni_buscar.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
@@ -156,9 +157,8 @@ public class abm_preventista extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jb_salir = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jb_atras = new javax.swing.JButton();
         minimizar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         filtroActivo = new javax.swing.JRadioButton();
@@ -272,22 +272,16 @@ public class abm_preventista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 204));
 
-        jb_salir.setBackground(new java.awt.Color(0, 0, 204));
-        jb_salir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_salir.setToolTipText("Salir");
-        jb_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        atras.setBackground(new java.awt.Color(0, 0, 204));
+        atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        atras.setToolTipText("Salir");
+        atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 204));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestión de Preventistas");
-
-        jb_atras.setBackground(new java.awt.Color(0, 0, 204));
-        jb_atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_atras.setForeground(new java.awt.Color(255, 255, 255));
-        jb_atras.setToolTipText("Atras");
-        jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setToolTipText("Minimizar");
@@ -303,14 +297,12 @@ public class abm_preventista extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 352, Short.MAX_VALUE)
+                .addContainerGap(409, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(252, 252, 252)
                 .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -323,13 +315,11 @@ public class abm_preventista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 44, Short.MAX_VALUE))))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -590,11 +580,11 @@ public class abm_preventista extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ImagenUtil.cargarEnLabel("src/imagenes/preventista.png", jLabel3);
-        ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel8);
-        ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel7);
-        ImagenUtil.cargarEnLabel("src/imagenes/telefono.png", jLabel5);
-        ImagenUtil.cargarEnLabel("src/imagenes/documento.jpg", jLabel4);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/preventista.png", jLabel3);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel8);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel7);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/telefono.png", jLabel5);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/documento.jpg", jLabel4);
         buscar();
     }//GEN-LAST:event_formWindowOpened
 
@@ -651,6 +641,7 @@ public class abm_preventista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
     private javax.swing.JTextField apellido;
+    private javax.swing.JButton atras;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelar;
@@ -675,8 +666,6 @@ public class abm_preventista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jb_atras;
-    private javax.swing.JButton jb_salir;
     private javax.swing.JButton minimizar;
     private javax.swing.JButton modificar;
     private javax.swing.JTextField nombre;

@@ -1,8 +1,6 @@
 
 package Formularios;
 
-import Clases.ImagenUtil;
-import Clases.Marca;
 import java.awt.*;
 import java.sql.*;
 import java.util.*;
@@ -22,29 +20,13 @@ public class abm_producto extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-        jLcodigo.setVisible(false);
         codigo.setDocument(new Clases.Validaciones.LimiteNumeros(3));
         descripcion.setDocument(new Clases.Validaciones.LimiteCaracteres(15));
         this.ventanaAnterior = called;
-        jb_atras.addActionListener(e -> {ventanaAnterior.setVisible(true);
-        dispose();
-        });
         carga();
         botonGroup();
         componentdesactivado();
-        // Cambiar bordes en foco
-        Clases.FocusBorderChanger.aplicar(codigo, new Color(0, 153, 255), Color.GRAY); // celeste
-        Clases.FocusBorderChanger.aplicar(descripcion, new Color(0, 153, 255), Color.GRAY);
-        // Aplica imagen al botón
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_salir, "/imagenes/salir.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
-        Clases.botonConImagen.ajustarImagenDinamicamente(jb_atras, "/imagenes/anterior.png");
-        // Placeholder para campo de búsqueda
-        new Clases.TextPrompt("Buscar...", codigo);
-        // Placeholder para campo nombre
-        new Clases.TextPrompt("Descripcion del Producto (*)", descripcion);
-        Clases.CargarCombox.cargar(jComboBox2, marcamap, "marca", "id_marca", "nombre_marca", "Seleccionar la Marca", "Agregar marca");
-        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+        personalizacion();
     }
     
     void componentactivo(){
@@ -52,10 +34,10 @@ public class abm_producto extends javax.swing.JFrame {
         jComboBox2.setEnabled(true);
         guardar.setEnabled(true);
         cancelar.setEnabled(true);
-        
     }
     
     void componentdesactivado(){
+        jLcodigo.setVisible(false);
         descripcion.setText("");
         jComboBox2.setSelectedIndex(0);
         buttonGroup1.clearSelection();
@@ -87,17 +69,35 @@ public class abm_producto extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonInactivo);
     } 
     
+    void personalizacion(){
+        // Cambiar bordes en foco
+        Clases.FocusBorderChanger.aplicar(codigo, new Color(0, 153, 255), Color.GRAY); // celeste
+        Clases.FocusBorderChanger.aplicar(descripcion, new Color(0, 153, 255), Color.GRAY);
+        // Aplica imagen al botón
+        Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
+        Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Placeholder para campo de búsqueda
+        new Clases.TextPrompt("Buscar...", codigo);
+        new Clases.TextPrompt("Descripcion del Producto (*)", descripcion);
+        //Estilo al jtable
+        Clases.tablaStyle.personalizarJTable(jTable1, jScrollPane1);
+        //Craga el comboBox
+        Clases.CargarCombox.cargar(jComboBox2, marcamap, "marca", "id_marca", "nombre_marca", "Seleccionar la Marca", "Agregar marca");
+        
+        atras.addActionListener(e -> {ventanaAnterior.setVisible(true);
+        dispose();
+        });
+    }
+    
     void carga(){
         codigo.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 buscar();
             }
-
             public void removeUpdate(DocumentEvent e) {
                 buscar();
                 componentdesactivado();
             }
-
             public void changedUpdate(DocumentEvent e) {
                 buscar();
             }
@@ -138,9 +138,8 @@ public class abm_producto extends javax.swing.JFrame {
         filtroTodo = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jb_salir = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jb_atras = new javax.swing.JButton();
         minimizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -286,27 +285,16 @@ public class abm_producto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
-        jb_salir.setBackground(new java.awt.Color(0, 0, 204));
-        jb_salir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_salir.setToolTipText("Salir");
-        jb_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_salirActionPerformed(evt);
-            }
-        });
+        atras.setBackground(new java.awt.Color(0, 0, 204));
+        atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        atras.setToolTipText("Salir");
+        atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 204));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestión de Productos");
-
-        jb_atras.setBackground(new java.awt.Color(0, 0, 204));
-        jb_atras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jb_atras.setForeground(new java.awt.Color(255, 255, 255));
-        jb_atras.setToolTipText("Atras");
-        jb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setToolTipText("Minimizar");
@@ -322,14 +310,12 @@ public class abm_producto extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(255, 255, 255)
+                .addGap(316, 316, 316)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -340,8 +326,7 @@ public class abm_producto extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jb_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 22, Short.MAX_VALUE))
         );
 
@@ -480,7 +465,6 @@ public class abm_producto extends javax.swing.JFrame {
         }catch(Exception ex){
             //JOptionPane.showMessageDialog(this,"Error al buscar el producto" +ex.getMessage());
         }
-        
     }
     
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
@@ -536,15 +520,10 @@ public class abm_producto extends javax.swing.JFrame {
         modificar.setEnabled(false);
     }//GEN-LAST:event_modificarActionPerformed
 
-    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jb_salirActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //ImagenUtil.agregarFondoAFrame(this, "src/imagenes/fondo_app5.jpg");
-        ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
-        ImagenUtil.cargarEnLabel("src/imagenes/producto.jpg", jLabel4);
-        ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel5);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/elimina.png", jLabel3);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/producto.jpg", jLabel4);
+        Clases.ImagenUtil.cargarEnLabel("src/imagenes/buscar10.jpg", jLabel5);
         buscar();
     }//GEN-LAST:event_formWindowOpened
 
@@ -614,6 +593,7 @@ public class abm_producto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
+    private javax.swing.JButton atras;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelar;
@@ -637,8 +617,6 @@ public class abm_producto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jb_atras;
-    private javax.swing.JButton jb_salir;
     private javax.swing.JButton minimizar;
     private javax.swing.JButton modificar;
     // End of variables declaration//GEN-END:variables

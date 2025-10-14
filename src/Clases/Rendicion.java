@@ -19,6 +19,13 @@ import javax.swing.JTable;
  * @author alumno
  */
 public class Rendicion {
+    public static ResultSet Buscar(Connection con, String campoid, String campoNom, String tablaAct, String text) throws Exception{
+        ResultSet rs = null;
+        PreparedStatement stm = con.prepareStatement("SELECT " + campoid + ", " + campoNom + " AS nombre_completo " + "FROM " + tablaAct + " WHERE " + campoNom + " LIKE ?");
+        stm.setString(1,"%"+ text +"%");
+        rs = stm.executeQuery();
+        return rs;
+    }
     public static int insertarRendicion(Connection con, Date fecha, int preventista, int zona, int punto, float total, float general, float cobranza, float efectivo, float diferencia, int puntor, float totalr)throws Exception{
     PreparedStatement stm = con.prepareStatement("insert into rendicion(fecha_rendicion, id_preventista, id_zona, punto_ingresado, total_ingresado, total_general, cobranza, efectivo, diferencia, punto_rendido, total_rendido) VALUES (?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setDate(1, fecha);
@@ -47,7 +54,7 @@ public class Rendicion {
         return 0;
     }
     public static void insertarTransferencias(Connection con, JTable tabla, int idRendicion, int columnaIgnorada) throws SQLException {
-            PreparedStatement ps = con.prepareStatement("insert into transferencia (id_cliente, monto, estado, id_rendicion) values (?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("insert into transferencia(id_cliente, monto, estado, id_rendicion) values (?, ?, ?, ?)");
             for (int i = 0; i < tabla.getRowCount(); i++) {
                 int paramIndex = 1;
 
@@ -63,12 +70,60 @@ public class Rendicion {
                     ps.execute();
                     //JOptionPane.showMessageDialog(null, "Carga Correcta");
                 }catch(Exception ex){
-                    //JOptionPane.showMessageDialog(null, "Error "+ ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error en la transferencia "+ ex.getMessage());
                 }
             }
-        
     }
     public static void insertarFiado(Connection con, JTable tabla, int idRendicion, int columnaIgnorada) throws SQLException {
+        String sqlFiado = "INSERT INTO fiado (id_cliente, monto, id_rendicion) VALUES (?, ?, ?)";
+        PreparedStatement psFiado = con.prepareStatement(sqlFiado, Statement.RETURN_GENERATED_KEYS);
+
+        String sqlDetalle = "INSERT INTO detalle_fiado (id_fiado, saldo, estadp) VALUES (?, ?, ?)";
+        PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            int paramIndex = 1;
+            Object idCliente = null;
+            float monto = 0f;
+
+            for (int j = 0; j < tabla.getColumnCount(); j++) {
+                if (j == columnaIgnorada) continue;
+
+                Object valor = tabla.getValueAt(i, j);
+
+                if (paramIndex == 1) {
+                    idCliente = valor;
+                    psFiado.setObject(paramIndex++, valor); // id_cliente
+                } else if (paramIndex == 2) {
+                    if (valor instanceof Float) {
+                        monto = (float) valor;
+                    } else {
+                        monto = Float.parseFloat(valor.toString());
+                    }
+                    psFiado.setFloat(paramIndex++, monto); // monto
+                }
+            }
+
+            psFiado.setInt(paramIndex, idRendicion); // id_rendicion
+
+            try {
+                psFiado.executeUpdate();
+
+                ResultSet rs = psFiado.getGeneratedKeys();
+                if (rs.next()) {
+                    int idFiadoGenerado = rs.getInt(1);
+
+                    psDetalle.setInt(1, idFiadoGenerado);
+                    psDetalle.setFloat(2, monto); // saldo = monto
+                    psDetalle.setString(3, "pendiente");
+                    psDetalle.executeUpdate();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    /*public static void insertarFiado(Connection con, JTable tabla, int idRendicion, int columnaIgnorada) throws SQLException {
             PreparedStatement ps = con.prepareStatement("insert into fiado (id_cliente, monto, id_rendicion) values (?, ?, ?)");
             for (int i = 0; i < tabla.getRowCount(); i++) {
                 int paramIndex = 1;
@@ -89,7 +144,7 @@ public class Rendicion {
                 }
             }
         
-    }
+    }*/
     public static void insertarGasto(Connection con, JTable tabla, int idRendicion, int columnaIgnorada) throws SQLException {
             PreparedStatement ps = con.prepareStatement("insert into detalle_gasto (id_gasto, monto_gasto, id_rendicion) values (?, ?, ?)");
             for (int i = 0; i < tabla.getRowCount(); i++) {
