@@ -156,6 +156,7 @@ public class abm_gasto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
+        minimizar.setBackground(new java.awt.Color(0, 0, 204));
         minimizar.setToolTipText("Minimizar");
         minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +165,7 @@ public class abm_gasto extends javax.swing.JFrame {
             }
         });
 
+        atras.setBackground(new java.awt.Color(0, 0, 204));
         atras.setToolTipText("Salir");
         atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 

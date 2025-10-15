@@ -16,7 +16,7 @@ public class tablaStyle {
     public static void personalizarJTable(JTable table, JScrollPane scrollPane) {
         // Estilo del encabezado
         JTableHeader header = table.getTableHeader();
-        header.setBackground(new Color(0, 0, 240));
+        header.setBackground(new Color(0, 0, 204));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("SansSerif", Font.BOLD, 14));
 

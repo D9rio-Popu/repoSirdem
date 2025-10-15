@@ -119,6 +119,8 @@ public class rendiciones extends javax.swing.JFrame {
     void personalizacion(){
         Clases.botonConImagen.ajustarImagenDinamicamente(atras, "/imagenes/salir.png");
         Clases.botonConImagen.ajustarImagenDinamicamente(minimizar, "/imagenes/ocultar.png");
+        // Colocar imagen + texto
+        //Clases.botonConImagen.ajustarImagenYTextoDinamicamente(jButton1, "/imagenes/documento.jpg", "Guardar");
         
         Clases.tablaStyle.personalizarJTable(jTableTransferencia, jScrollPane1);
         Clases.tablaStyle.personalizarJTable(jTableGasto, jScrollPane4);
@@ -350,13 +352,13 @@ public class rendiciones extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 153));
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Gestion de Rendiciones");
 
-        minimizar.setBackground(new java.awt.Color(0, 0, 204));
+        minimizar.setBackground(new java.awt.Color(0, 0, 153));
         minimizar.setToolTipText("Minimizar");
         minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizar.addActionListener(new java.awt.event.ActionListener() {
@@ -365,7 +367,7 @@ public class rendiciones extends javax.swing.JFrame {
             }
         });
 
-        atras.setBackground(new java.awt.Color(0, 0, 204));
+        atras.setBackground(new java.awt.Color(0, 0, 153));
         atras.setToolTipText("Salir");
         atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         atras.addActionListener(new java.awt.event.ActionListener() {
